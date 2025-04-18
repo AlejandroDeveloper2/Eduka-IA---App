@@ -44,6 +44,14 @@ export const managementActions: StateCreator<
             ? { ...newEducativeResource, content: compressedBase64Image }
             : newEducativeResource,
         ]);
+        set(({ educativeResources }) => ({
+          educativeResources: [
+            ...educativeResources,
+            format === "Image"
+              ? { ...newEducativeResource, content: compressedBase64Image }
+              : newEducativeResource,
+          ],
+        }));
         return;
       }
 
@@ -55,6 +63,10 @@ export const managementActions: StateCreator<
       ];
 
       await AsyncStorageService.setItem(storageKey, updatedEducativeResources);
+
+      set({
+        educativeResources: updatedEducativeResources,
+      });
 
       await get().findEducativeResources("All", () => {});
 
