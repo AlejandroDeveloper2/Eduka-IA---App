@@ -6,8 +6,8 @@ const useSplashScreen = (): boolean => {
 
   useEffect(() => {
     async function prepare() {
-      await hideAsync();
       await new Promise((resolve) => setTimeout(resolve, 1500));
+      await hideAsync();
       setAppReady(true);
     }
     prepare();

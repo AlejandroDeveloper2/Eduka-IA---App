@@ -12,6 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: "light",
   newArchEnabled: true,
   ios: {
+    userInterfaceStyle: "light",
     supportsTablet: true,
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
@@ -23,6 +24,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: "#5E17EB",
     },
     package: "com.diazalejo.edukaia",
+    userInterfaceStyle: "light",
   },
   web: {
     bundler: "metro",
