@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 2.7.1"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      },
+      "env": {
+        "EXPO_OPEN_IA_API_KEY": "${EXPO_OPEN_IA_API_KEY}",
+        "EXPO_OPEN_IA_API_URL": "${EXPO_OPEN_IA_API_URL}"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_OPEN_IA_API_KEY": "${EXPO_OPEN_IA_API_KEY}",
+        "EXPO_OPEN_IA_API_URL": "${EXPO_OPEN_IA_API_URL}"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_OPEN_IA_API_KEY": "${EXPO_OPEN_IA_API_KEY}",
+        "EXPO_OPEN_IA_API_URL": "${EXPO_OPEN_IA_API_URL}"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
