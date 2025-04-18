@@ -17,6 +17,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
     },
+    bundleIdentifier: "com.diazalejo.edukaia",
   },
   android: {
     adaptiveIcon: {
