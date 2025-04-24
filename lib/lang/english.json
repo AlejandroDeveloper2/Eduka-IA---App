@@ -7,6 +7,7 @@
     "ia-result-section-title": "Result",
     "ia-result-section-btn-label": "Generate another resource",
     "ia-result-no-content-generated-text": "No content generated",
+    "ia-info-card-description": "If you want to improve your request to generate a resource more adapted to what you want you can press the pencil icon button to edit your request.",
     "request-resource-form-labels": {
       "form-button-label": "Generate resource",
       "form-subtitle": "Generate your resources right now",

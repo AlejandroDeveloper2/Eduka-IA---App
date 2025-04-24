@@ -15,3 +15,4 @@ export { default as toastConfig } from "./toast/Toast";
 export { default as ToolBar } from "./tool-bar/ToolBar";
 export { default as NoConnectedBox } from "./no-connect-box/NoConnectedBox";
 export { default as Splash } from "./splash/Splash";
+export { default as InfoCard } from "./info-card/InfoCard";

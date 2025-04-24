@@ -7,7 +7,7 @@ import useIAResponseBoxLogic from "@/lib/hooks/core/useIAResponseBoxLogic";
 import { copyToClipboard, generateUniqueId, getViewer } from "@/lib/utils";
 
 import { Badge, Typography } from "@/components/atoms";
-import { IconOnlyButton } from "@/components/molecules";
+import { IconOnlyButton, InfoCard } from "@/components/molecules";
 import PopUp from "../pop-up/PopUp";
 import SaveResourceForm from "../save-resource-form/SaveResourceForm";
 
@@ -60,6 +60,10 @@ const IaResponseBox = ({ size }: IaResponseBoxProps): JSX.Element => {
         />
       </IaResponseHeader>
       {getViewer(formatKey, size, generatedContent)}
+      <InfoCard
+        description={t("home-screen-translations.ia-info-card-description")}
+        size={size}
+      />
       <IaResponseOptions>
         <IconOnlyButton
           iconName="save-outline"

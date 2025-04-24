@@ -7,6 +7,7 @@
     "ia-result-section-title": "Resultado",
     "ia-result-section-btn-label": "Generar otro recurso",
     "ia-result-no-content-generated-text": "No se generó contenido",
+    "ia-info-card-description": "Si quieres mejorar tu petición para generar un recurso mas adaptado a lo que quieres puedes presionar el botón del icono del lápiz para editar tu solicitud.",
     "request-resource-form-labels": {
       "form-button-label": "Generar recurso",
       "form-subtitle": "Genera tus recursos ahora mismo",
