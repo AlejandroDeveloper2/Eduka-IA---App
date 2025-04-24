@@ -89,6 +89,11 @@ interface FilterOption {
   iconName: keyof typeof Ionicons.glyphMap;
 }
 
+interface GradeLevel {
+  gradeLevelId: string;
+  gradeLevelName: string;
+}
+
 export type {
   AcademicResource,
   Lang,
@@ -108,4 +113,5 @@ export type {
   DownloadedFileInfo,
   FilterOption,
   FilterOptionKey,
+  GradeLevel,
 };

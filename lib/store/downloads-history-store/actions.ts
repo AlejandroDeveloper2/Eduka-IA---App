@@ -83,7 +83,10 @@ export const createActions: StateCreator<
       );
     } catch (e) {
       console.error(e);
-      Toast.error("No se pudo renombrar el recurso", "bottom");
+      Toast.error(
+        i18n.t("operations-messages.resource-edited-error-msg"),
+        "bottom"
+      );
     } finally {
       toggleLoading(null, false);
     }

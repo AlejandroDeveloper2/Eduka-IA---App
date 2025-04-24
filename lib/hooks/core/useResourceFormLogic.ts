@@ -7,6 +7,7 @@ import {
   AcademicResource,
   Language,
   ResourceRequest,
+  GradeLevel,
 } from "@/lib/types/dataTypes";
 
 import { PROMPT_PANEL_OPTIONS } from "@/lib/constants/PromptPanelOptions";
@@ -28,6 +29,7 @@ import {
 import { validationSchema } from "@/components/organisms/generate-resource-form/validationSchema";
 
 import { generateUniqueId, setDropdownSelectedOption } from "@/lib/utils";
+import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 const initialData: ResourceRequest = {
   subject: "",
@@ -91,6 +93,18 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
     requestFormData
   );
 
+  const gradeDropdown = useDropdown<GradeLevel>(
+    "gradeLevelName",
+    requestFormData
+      ? setDropdownSelectedOption(
+          GRADE_LEVELS[language],
+          "gradeLevelName",
+          requestFormData.grade
+        )
+      : null,
+    (value) => updateData("grade", value)
+  );
+
   const countriesDropdown = useDropdown<Country>(
     "countryName",
     requestFormData
@@ -140,6 +154,7 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
     getInputError,
     handleChange,
     handleSubmit,
+    gradeDropdown,
     countriesDropdown,
     resourcesDropdown,
     languagesDropdown,

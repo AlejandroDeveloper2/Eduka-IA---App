@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import {
   AcademicResource,
   Country,
+  GradeLevel,
   Language,
   ResourceRequest,
 } from "@/lib/types/dataTypes";
@@ -17,6 +18,7 @@ import useResourceFormLogic from "@/lib/hooks/core/useResourceFormLogic";
 
 import Form from "../form/Form";
 import { Subtitle } from "@/components/atoms";
+import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 interface GenerateResourceFormProps {
   scrollViewRef: React.RefObject<ScrollView>;
@@ -36,6 +38,7 @@ const GenerateResourceForm = ({
     getInputError,
     handleChange,
     handleSubmit,
+    gradeDropdown,
     countriesDropdown,
     resourcesDropdown,
     languagesDropdown,
@@ -83,21 +86,26 @@ const GenerateResourceForm = ({
             />
           </Form.Col>
           <Form.Col size={size} fill={false}>
-            <Form.Input<ResourceRequest>
-              inputRef={getInputRef("grade")}
+            <Form.Dropdown<GradeLevel>
+              dropdownRef={getDropdownRef("grade")}
               label={`${t(
                 "home-screen-translations.request-resource-form-labels.form-input-grade-label"
               )} (*)`}
-              value={data.grade}
-              name="grade"
-              size={size}
-              placeholder={t(
+              defaultText={t(
                 "home-screen-translations.request-resource-form-labels.form-input-grade-placeholder"
               )}
+              optionIdKey="gradeLevelId"
+              optionValueKey="gradeLevelName"
+              options={GRADE_LEVELS[language]}
+              selectedOption={gradeDropdown.selectedOption}
+              onSelectOption={gradeDropdown.handleSelectOption}
+              name="gradeLevelName"
+              size={size}
+              searchInputPlaceholder={t(
+                "home-screen-translations.request-resource-form-labels.form-input-grade-search"
+              )}
               iconName="school-outline"
-              keyboardType="default"
-              onChange={handleChange}
-              onClearInput={() => handleChange("grade", "")}
+              onClearOption={gradeDropdown.handleClearOption}
               errorMessage={getInputError("grade")}
             />
           </Form.Col>
