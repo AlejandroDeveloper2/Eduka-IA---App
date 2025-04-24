@@ -26,7 +26,7 @@ function DropdownOption<D>({
   toggleDeployOptions,
 }: OptionProps<D>): JSX.Element {
   const value: string = Object(optionData)[optionValueKey];
-  const { animatedStyle, toggleOptionState } =
+  const { animatedStyle, toggleOptionState, optionState } =
     useAnimatedDropdownOption(active);
 
   return (
@@ -44,7 +44,11 @@ function DropdownOption<D>({
         size={size}
         type="paragraph"
         text={value}
-        color={active ? Colors.basic.white : Colors.neutral[1000]}
+        color={
+          active || optionState === "pressed"
+            ? Colors.basic.white
+            : Colors.neutral[1000]
+        }
         align="center"
         fontWeight={"400Regular"}
       />

@@ -28,7 +28,8 @@ const NavItem = ({
   disabled,
   onPress,
 }: NavItemProps): JSX.Element => {
-  const { animatedStyle, toggleOptionState } = useAnimatedNavItem(active);
+  const { optionState, animatedStyle, toggleOptionState } =
+    useAnimatedNavItem(active);
 
   return (
     <NavItemBox>
@@ -46,7 +47,7 @@ const NavItem = ({
           color={
             disabled
               ? Colors.neutral[700]
-              : active
+              : active || optionState === "pressed"
               ? Colors.basic.white
               : Colors.neutral[1000]
           }

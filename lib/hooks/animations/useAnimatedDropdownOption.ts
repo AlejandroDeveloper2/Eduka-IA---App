@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -12,25 +11,20 @@ import { Colors } from "@/lib/constants/Colors";
 const useAnimatedDropdownOption = (active: boolean) => {
   const [optionState, setOptionState] = useState<OptionStateType>("default");
 
-  const backgroundValue = useSharedValue(0);
+  const backgroundValue = useSharedValue(Colors.basic.white);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(
-      backgroundValue.value,
-      [0, 1],
-      [active ? Colors.primary[400] : Colors.basic.white, Colors.primary[100]]
-    ),
+    backgroundColor: backgroundValue.value,
   }));
 
   useEffect(() => {
-    if (active) backgroundValue.value = withTiming(0, { duration: 200 });
-  }, [active]);
-
-  useEffect(() => {
-    if (optionState === "pressed")
-      backgroundValue.value = withTiming(1, { duration: 200 });
-    else backgroundValue.value = withTiming(0, { duration: 200 });
-  }, [optionState]);
+    backgroundValue.value = withTiming(
+      active || optionState === "pressed"
+        ? Colors.primary[400]
+        : Colors.basic.white,
+      { duration: 150 }
+    );
+  }, [optionState, active]);
 
   const toggleOptionState = useCallback((state: OptionStateType) => {
     setOptionState(state);
