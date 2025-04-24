@@ -32,7 +32,7 @@
       "subject-error-required-msg": "The name of the subject is mandatory",
       "subject-error-min-msg": "The name of the subject must have at least 3 characters",
       "grade-error-required-msg": "Grade level is mandatory",
-      "grade-error-min-msg": "The grade must have at least 3 characters",
+      "grade-error-invalid-msg": "Invalid grade level name",
       "country-error-required-msg": "The country is mandatory",
       "country-error-invalid-msg": "Invalid country name",
       "resource-type-error-required-msg": "The type of academic resource is mandatory",

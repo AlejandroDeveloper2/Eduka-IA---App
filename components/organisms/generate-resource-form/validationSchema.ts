@@ -1,10 +1,12 @@
 import { v } from "@/lib/utils";
 
 import { FormatOption, ResourceRequest } from "@/lib/types/dataTypes";
+
 import { COUNTRIES } from "@/lib/constants/Countries";
 import { ACADEMIC_RESOURCES } from "@/lib/constants/AcademicResources";
 import { PROMPT_PANEL_OPTIONS } from "@/lib/constants/PromptPanelOptions";
 import { LANGUAGES } from "@/lib/constants/Languages";
+import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 import { i18n, LangTag } from "@/lib/store/lang-store/Lang.store";
 
@@ -30,11 +32,14 @@ export const validationSchema = (currentLang: LangTag) =>
           "home-screen-translations.request-resource-form-error-messages.grade-error-required-msg"
         )
       )
-      .min(
-        3,
-        i18n.t(
-          "home-screen-translations.request-resource-form-error-messages.grade-error-min-msg"
-        )
+      .custom((value) =>
+        GRADE_LEVELS[currentLang].find(
+          (grade) => grade.gradeLevelName === (value as string)
+        ) || value === ""
+          ? null
+          : i18n.t(
+              "home-screen-translations.request-resource-form-error-messages.grade-error-invalid-msg"
+            )
       ),
     country: v
       .string()

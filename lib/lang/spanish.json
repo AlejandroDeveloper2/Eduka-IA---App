@@ -32,7 +32,7 @@
       "subject-error-required-msg": "El nombre de la asignatura es obligatorio",
       "subject-error-min-msg": "El nombre de la asignatura debe tener al menos 3 caracteres",
       "grade-error-required-msg": "El grado es obligatorio",
-      "grade-error-min-msg": "El grado debe tener al menos 3 caracteres",
+      "grade-error-invalid-msg": "Nombre del grado escolar invalido",
       "country-error-required-msg": "El país es obligatorio",
       "country-error-invalid-msg": "Nombre de país inválido",
       "resource-type-error-required-msg": "El tipo de recurso académico es obligatorio",

@@ -32,7 +32,7 @@
       "subject-error-required-msg": "O nome da disciplina é obrigatório",
       "subject-error-min-msg": "O nome da disciplina deve ter pelo menos 3 caracteres",
       "grade-error-required-msg": "O ano é obrigatório",
-      "grade-error-min-msg": "O ano deve ter pelo menos 3 caracteres",
+      "grade-error-invalid-msg": "Nome de ano escolar inválido",
       "country-error-required-msg": "O país é obrigatório",
       "country-error-invalid-msg": "Nome de país inválido",
       "resource-type-error-required-msg": "O tipo de recurso acadêmico é obrigatório",

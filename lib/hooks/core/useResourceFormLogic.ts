@@ -14,6 +14,7 @@ import { PROMPT_PANEL_OPTIONS } from "@/lib/constants/PromptPanelOptions";
 import { ACADEMIC_RESOURCES } from "@/lib/constants/AcademicResources";
 import { COUNTRIES } from "@/lib/constants/Countries";
 import { LANGUAGES } from "@/lib/constants/Languages";
+import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 import {
   useBackgroundTaskStore,
@@ -29,7 +30,6 @@ import {
 import { validationSchema } from "@/components/organisms/generate-resource-form/validationSchema";
 
 import { generateUniqueId, setDropdownSelectedOption } from "@/lib/utils";
-import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 const initialData: ResourceRequest = {
   subject: "",

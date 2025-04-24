@@ -12,13 +12,13 @@ import {
 import { COUNTRIES } from "@/lib/constants/Countries";
 import { ACADEMIC_RESOURCES } from "@/lib/constants/AcademicResources";
 import { LANGUAGES } from "@/lib/constants/Languages";
+import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 import { Colors } from "@/lib/constants/Colors";
 
 import useResourceFormLogic from "@/lib/hooks/core/useResourceFormLogic";
 
 import Form from "../form/Form";
 import { Subtitle } from "@/components/atoms";
-import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 interface GenerateResourceFormProps {
   scrollViewRef: React.RefObject<ScrollView>;
