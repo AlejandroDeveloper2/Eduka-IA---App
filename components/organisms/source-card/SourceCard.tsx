@@ -8,33 +8,39 @@ import { Colors } from "@/lib/constants/Colors";
 
 import useSourceCardLogic from "@/lib/hooks/core/useSourceCardLogic";
 
-import { getViewer } from "@/lib/utils";
-
 import { Badge, Typography } from "@/components/atoms";
 import { IconOnlyButton } from "@/components/molecules";
-import PopUp from "../pop-up/PopUp";
-import EditResourceTitleForm from "../edit-resource-title-form/EditResourceTitleForm";
 
 import { CardBox, CardHeader, TitleContainer } from "./SourceCard.style";
 
 interface SourceCardProps {
   size: SizeType;
   resourceData: EducativeResource;
+  openPopUp: () => void;
+  handleResourceData: (data: EducativeResource) => void;
+  toggleEditionMode: (mode: boolean) => void;
 }
 
-const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
+const SourceCard = ({
+  size,
+  resourceData,
+  openPopUp,
+  handleResourceData,
+  toggleEditionMode,
+}: SourceCardProps): JSX.Element => {
   const {
-    editionMode,
     t,
     format,
     animatedCardStyle,
-    isMounted,
-    animatedPopUpStyle,
-    closePopUp,
     toggleActiveSelectionMode,
     onSelectResource,
     activeEditionMode,
-  } = useSourceCardLogic(resourceData);
+  } = useSourceCardLogic(
+    resourceData,
+    openPopUp,
+    handleResourceData,
+    toggleEditionMode
+  );
 
   return (
     <CardBox
@@ -76,23 +82,6 @@ const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
           variant="neutral"
         />
       </CardHeader>
-      <PopUp
-        title={resourceData.title}
-        size={size}
-        isMounted={isMounted}
-        animatedPopUpStyle={animatedPopUpStyle}
-        closePopUp={closePopUp}
-      >
-        {editionMode ? (
-          <EditResourceTitleForm
-            resourceData={resourceData}
-            editionMode="Preview"
-            closePopUp={closePopUp}
-          />
-        ) : (
-          getViewer(resourceData.formatOption.key, size, resourceData.content)
-        )}
-      </PopUp>
     </CardBox>
   );
 };

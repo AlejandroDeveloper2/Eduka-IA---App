@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ListRenderItemInfo } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
@@ -7,6 +7,7 @@ import { EducativeResource } from "@/lib/types/dataTypes";
 
 import {
   useAnimatedLoader,
+  useAnimatedPopUp,
   useEducativeResourcesStore,
   useFilter,
   useLoader,
@@ -18,6 +19,11 @@ import {
 import { SourceCard } from "@/components/organisms";
 
 const useMyResourcesTemplateLogic = () => {
+  const [resourceData, setResourceData] = useState<EducativeResource | null>(
+    null
+  );
+  const [editionMode, setEditionMode] = useState<boolean>(false);
+
   const size: SizeType = useScreenDimensions();
 
   const tabBarHeight = useBottomTabBarHeight();
@@ -36,14 +42,26 @@ const useMyResourcesTemplateLogic = () => {
   } = useEducativeResourcesStore();
 
   const loadPercentage = useLoader(isDownloading, duration);
+
   const { progress, scaleValue } = useAnimatedLoader(
     loadPercentage,
     isDownloading
   );
 
+  const { isMounted, animatedPopUpStyle, openPopUp, closePopUp } =
+    useAnimatedPopUp();
+
   useEffect(() => {
     findEducativeResources(selectedFilter, toggleLoading);
   }, [selectedFilter]);
+
+  const handleResourceData = (data: EducativeResource): void => {
+    setResourceData(data);
+  };
+
+  const toggleEditionMode = (mode: boolean): void => {
+    setEditionMode(mode);
+  };
 
   const keyExtrator = (item: unknown) => {
     const resource = item as EducativeResource;
@@ -52,10 +70,20 @@ const useMyResourcesTemplateLogic = () => {
 
   const renderItem = (item: ListRenderItemInfo<unknown>) => {
     const resource = item.item as EducativeResource;
-    return <SourceCard size={size} resourceData={resource} />;
+    return (
+      <SourceCard
+        size={size}
+        resourceData={resource}
+        openPopUp={openPopUp}
+        handleResourceData={handleResourceData}
+        toggleEditionMode={toggleEditionMode}
+      />
+    );
   };
 
   return {
+    resourceData,
+    editionMode,
     size,
     tabBarHeight,
     t,
@@ -70,6 +98,9 @@ const useMyResourcesTemplateLogic = () => {
     scaleValue,
     keyExtrator,
     renderItem,
+    isMounted,
+    animatedPopUpStyle,
+    closePopUp,
   };
 };
 

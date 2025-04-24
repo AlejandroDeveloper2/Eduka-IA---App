@@ -1,16 +1,17 @@
-import { useState } from "react";
-
 import { EducativeResource } from "@/lib/types/dataTypes";
 
 import {
-  useAnimatedPopUp,
   useAnimatedResourceCard,
   useEducativeResourcesStore,
   useTranslations,
 } from "..";
 
-const useSourceCardLogic = (resourceData: EducativeResource) => {
-  const [editionMode, setEditionMode] = useState<boolean>(false);
+const useSourceCardLogic = (
+  resourceData: EducativeResource,
+  openPopUp: () => void,
+  handleResourceData: (data: EducativeResource) => void,
+  toggleEditionMode: (mode: boolean) => void
+) => {
   const { t } = useTranslations();
 
   const format = resourceData.formatOption.key;
@@ -20,9 +21,6 @@ const useSourceCardLogic = (resourceData: EducativeResource) => {
 
   const animatedCardStyle =
     useAnimatedResourceCard(resourceData).animatedCardStyle;
-
-  const { isMounted, animatedPopUpStyle, openPopUp, closePopUp } =
-    useAnimatedPopUp();
 
   const toggleActiveSelectionMode = (): void => {
     if (!selectionMode) {
@@ -39,27 +37,24 @@ const useSourceCardLogic = (resourceData: EducativeResource) => {
       selectEducativeResource(resourceData);
       return;
     }
-    setEditionMode(false);
+    handleResourceData(resourceData);
+    toggleEditionMode(false);
     openPopUp();
   };
 
   const activeEditionMode = (): void => {
+    handleResourceData(resourceData);
     openPopUp();
-    setEditionMode(true);
+    toggleEditionMode(true);
   };
 
   return {
-    editionMode,
     t,
     format,
     animatedCardStyle,
-    isMounted,
-    animatedPopUpStyle,
-    closePopUp,
     toggleActiveSelectionMode,
     onSelectResource,
     activeEditionMode,
-    setEditionMode,
   };
 };
 

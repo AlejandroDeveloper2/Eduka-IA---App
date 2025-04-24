@@ -12,3 +12,4 @@ export { default as DownloadsHeader } from "./downloads-header/DownloadsHeader";
 export { default as GenerateResourceForm } from "./generate-resource-form/GenerateResourceForm";
 export { default as SaveResourceForm } from "./save-resource-form/SaveResourceForm";
 export { default as FileCard } from "./file-card/FileCard";
+export { default as EditResourceTitleForm } from "./edit-resource-title-form/EditResourceTitleForm";

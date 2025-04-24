@@ -2,7 +2,13 @@ import useMyResourcesTemplateLogic from "@/lib/hooks/core/useMyResourcesTemplate
 
 import { Empty } from "@/components/atoms";
 import { Loader, LoadingBox } from "@/components/molecules";
-import { MyResourcesHeader } from "@/components/organisms";
+import {
+  MyResourcesHeader,
+  PopUp,
+  EditResourceTitleForm,
+} from "@/components/organisms";
+
+import { getViewer } from "@/lib/utils";
 
 import { ResourcesList } from "./MyResourcesTemplate.style";
 
@@ -16,6 +22,8 @@ const getItemLayout = (_: unknown, index: number) => ({
 
 const MyResourcesTemplate = (): JSX.Element => {
   const {
+    resourceData,
+    editionMode,
     size,
     tabBarHeight,
     t,
@@ -30,6 +38,9 @@ const MyResourcesTemplate = (): JSX.Element => {
     scaleValue,
     keyExtrator,
     renderItem,
+    isMounted,
+    animatedPopUpStyle,
+    closePopUp,
   } = useMyResourcesTemplateLogic();
 
   return (
@@ -76,6 +87,25 @@ const MyResourcesTemplate = (): JSX.Element => {
           keyExtractor={keyExtrator}
           renderItem={renderItem}
         />
+      )}
+      {resourceData && (
+        <PopUp
+          title={resourceData.title}
+          size={size}
+          isMounted={isMounted}
+          animatedPopUpStyle={animatedPopUpStyle}
+          closePopUp={closePopUp}
+        >
+          {editionMode ? (
+            <EditResourceTitleForm
+              resourceData={resourceData}
+              editionMode="Preview"
+              closePopUp={closePopUp}
+            />
+          ) : (
+            getViewer(resourceData.formatOption.key, size, resourceData.content)
+          )}
+        </PopUp>
       )}
     </>
   );

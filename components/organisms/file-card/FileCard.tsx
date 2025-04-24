@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GestureDetector } from "react-native-gesture-handler";
@@ -9,18 +10,18 @@ import { DownloadedFileInfo } from "@/lib/types/dataTypes";
 import { Colors } from "@/lib/constants/Colors";
 import { Spacing } from "@/lib/constants/Spacing";
 
-import { useAnimatedFileCard, useAnimatedPopUp } from "@/lib/hooks";
+import { useAnimatedFileCard } from "@/lib/hooks";
 
 import { Typography } from "@/components/atoms";
 import { IconOnlyButton } from "@/components/molecules";
-import PopUp from "../pop-up/PopUp";
-import EditResourceTitleForm from "../edit-resource-title-form/EditResourceTitleForm";
 
 import { FileCardBody, FileCardBox, SizeIndicator } from "./FileCard.style";
 
 interface FileCardProps {
   fileInfo: DownloadedFileInfo;
   size: SizeType;
+  openPopUp: () => void;
+  handleFileData: (data: DownloadedFileInfo) => void;
   onPressFile: () => void;
   onDeleteFile: () => void;
 }
@@ -28,14 +29,13 @@ interface FileCardProps {
 const FileCard = ({
   fileInfo,
   size,
+  openPopUp,
+  handleFileData,
   onPressFile,
   onDeleteFile,
 }: FileCardProps): JSX.Element => {
   const { swipeToLeftGesture, animatedCardStyle, animatedContainerStyle } =
     useAnimatedFileCard(onDeleteFile);
-
-  const { isMounted, animatedPopUpStyle, openPopUp, closePopUp } =
-    useAnimatedPopUp();
 
   return (
     <Animated.View
@@ -88,7 +88,10 @@ const FileCard = ({
             size={size}
             width="auto"
             variant="neutral"
-            onPress={openPopUp}
+            onPress={() => {
+              handleFileData(fileInfo);
+              openPopUp();
+            }}
           />
           <IconOnlyButton
             iconName="share-social-outline"
@@ -109,21 +112,16 @@ const FileCard = ({
           />
         </SizeIndicator>
       </FileCardBox>
-      <PopUp
-        title={fileInfo.name.split(".")[0]}
-        size={size}
-        isMounted={isMounted}
-        animatedPopUpStyle={animatedPopUpStyle}
-        closePopUp={closePopUp}
-      >
-        <EditResourceTitleForm
-          resourceData={fileInfo}
-          editionMode="Downloaded-file"
-          closePopUp={closePopUp}
-        />
-      </PopUp>
     </Animated.View>
   );
 };
 
-export default FileCard;
+function areEqual(prev: FileCardProps, next: FileCardProps) {
+  return (
+    prev.fileInfo.name === next.fileInfo.name &&
+    prev.fileInfo.fileUri === next.fileInfo.fileUri &&
+    prev.size === next.size
+  );
+}
+
+export default memo(FileCard, areEqual);
