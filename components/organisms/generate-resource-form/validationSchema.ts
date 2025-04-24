@@ -8,7 +8,7 @@ import { LANGUAGES } from "@/lib/constants/Languages";
 
 import { i18n, LangTag } from "@/lib/store/lang-store/Lang.store";
 
-export const resourceRequestSchema = (currentLang: LangTag) =>
+export const validationSchema = (currentLang: LangTag) =>
   v.object<ResourceRequest>({
     subject: v
       .string()

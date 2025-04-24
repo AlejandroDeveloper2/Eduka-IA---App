@@ -30,7 +30,7 @@ const useAnimatedSplash = (onFinish: () => void) => {
           runOnJS(onFinish)();
         }
       });
-    }, 1500);
+    }, 2000);
 
     return () => clearTimeout(timeout);
   }, []);

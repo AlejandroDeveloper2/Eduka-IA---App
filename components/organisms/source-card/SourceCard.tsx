@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { View } from "react-native";
 
 import { SizeType } from "@/lib/types";
 import { EducativeResource } from "@/lib/types/dataTypes";
@@ -10,7 +11,9 @@ import useSourceCardLogic from "@/lib/hooks/core/useSourceCardLogic";
 import { getViewer } from "@/lib/utils";
 
 import { Badge, Typography } from "@/components/atoms";
+import { IconOnlyButton } from "@/components/molecules";
 import PopUp from "../pop-up/PopUp";
+import EditResourceTitleForm from "../edit-resource-title-form/EditResourceTitleForm";
 
 import { CardBox, CardHeader, TitleContainer } from "./SourceCard.style";
 
@@ -21,38 +24,24 @@ interface SourceCardProps {
 
 const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
   const {
+    editionMode,
     t,
     format,
-    selectionMode,
-    activeSelectionMode,
-    selectEducativeResource,
     animatedCardStyle,
     isMounted,
     animatedPopUpStyle,
-    openPopUp,
     closePopUp,
+    toggleActiveSelectionMode,
+    onSelectResource,
+    activeEditionMode,
   } = useSourceCardLogic(resourceData);
 
   return (
     <CardBox
       size={size}
       style={animatedCardStyle}
-      onLongPress={() => {
-        if (!selectionMode) {
-          activeSelectionMode();
-
-          setTimeout(() => {
-            selectEducativeResource(resourceData);
-          }, 0);
-        }
-      }}
-      onPress={() => {
-        if (selectionMode) {
-          selectEducativeResource(resourceData);
-          return;
-        }
-        openPopUp();
-      }}
+      onLongPress={toggleActiveSelectionMode}
+      onPress={onSelectResource}
     >
       <CardHeader>
         <Badge
@@ -69,13 +58,22 @@ const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
             fontWeight="500Medium"
           />
         </TitleContainer>
-        <Typography
+        <View style={{ position: "absolute", bottom: -15, left: 0 }}>
+          <Typography
+            size={size}
+            type="caption"
+            text={resourceData.creationDate}
+            color={Colors.neutral[800]}
+            align="center"
+            fontWeight="300Light"
+          />
+        </View>
+        <IconOnlyButton
+          iconName="pencil-outline"
           size={size}
-          type="caption"
-          text={resourceData.creationDate}
-          color={Colors.neutral[800]}
-          align="center"
-          fontWeight="300Light"
+          onPress={activeEditionMode}
+          width="auto"
+          variant="neutral"
         />
       </CardHeader>
       <PopUp
@@ -85,7 +83,15 @@ const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
         animatedPopUpStyle={animatedPopUpStyle}
         closePopUp={closePopUp}
       >
-        {getViewer(resourceData.formatOption.key, size, resourceData.content)}
+        {editionMode ? (
+          <EditResourceTitleForm
+            resourceData={resourceData}
+            editionMode="Preview"
+            closePopUp={closePopUp}
+          />
+        ) : (
+          getViewer(resourceData.formatOption.key, size, resourceData.content)
+        )}
       </PopUp>
     </CardBox>
   );
@@ -94,6 +100,7 @@ const SourceCard = ({ size, resourceData }: SourceCardProps): JSX.Element => {
 function areEqual(prev: SourceCardProps, next: SourceCardProps) {
   return (
     prev.resourceData.resourceId === next.resourceData.resourceId &&
+    prev.resourceData.title === next.resourceData.title &&
     prev.size === next.size
   );
 }

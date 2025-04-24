@@ -9,3 +9,6 @@ export { default as IaResponseBox } from "./ia-response-box/IaResponseBox";
 export { default as SourceCard } from "./source-card/SourceCard";
 export { default as MyResourcesHeader } from "./my-resources-header/MyResourcesHeader";
 export { default as DownloadsHeader } from "./downloads-header/DownloadsHeader";
+export { default as GenerateResourceForm } from "./generate-resource-form/GenerateResourceForm";
+export { default as SaveResourceForm } from "./save-resource-form/SaveResourceForm";
+export { default as FileCard } from "./file-card/FileCard";

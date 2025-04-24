@@ -12,7 +12,7 @@ import {
   useTranslations,
 } from "..";
 
-import { FileCard } from "@/components/molecules";
+import { FileCard } from "@/components/organisms";
 
 const useDownloadsTemplateLogic = () => {
   const size: SizeType = useScreenDimensions();

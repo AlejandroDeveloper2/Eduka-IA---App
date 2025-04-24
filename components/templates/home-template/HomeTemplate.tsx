@@ -11,8 +11,8 @@ import {
   NoConnectedBox,
   ScreenSection,
 } from "@/components/molecules";
+import { GenerateResourceForm } from "@/components/organisms";
 import IaResponseTemplate from "../ia-response-template/IaResponseTemplate";
-import RequestResourceTemplate from "../request-resource-template/RequestResourceTemplate";
 
 import { ScrollViewStyles } from "./HomeTemplate.style";
 
@@ -73,7 +73,7 @@ const HomeTemplate = (): JSX.Element => {
           ) : generatedEducativeResource && !isEditing ? (
             <IaResponseTemplate />
           ) : (
-            <RequestResourceTemplate scrollViewRef={scrollViewRef} />
+            <GenerateResourceForm scrollViewRef={scrollViewRef} />
           )}
         </ScrollView>
       )}

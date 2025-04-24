@@ -71,6 +71,8 @@ interface SaveResource {
   title: string;
 }
 
+type EditResource = SaveResource;
+
 type FileExtensionType = "txt" | "pdf" | "webp";
 
 interface DownloadedFileInfo {
@@ -101,6 +103,7 @@ export type {
   FormatOptionKey,
   EducativeResource,
   SaveResource,
+  EditResource,
   FileExtensionType,
   DownloadedFileInfo,
   FilterOption,

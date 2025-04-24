@@ -30,6 +30,11 @@ export interface ManagementActions {
     newEducativeResource: EducativeResource,
     toggleLoading: (message: string | null, isLoading: boolean) => void
   ) => Promise<void>;
+  editEducativeResourceTitle: (
+    resourceId: string,
+    updatedTitle: string,
+    toggleLoading: (message: string | null, isLoading: boolean) => void
+  ) => Promise<void>;
   findEducativeResources: (
     filter: ListFilter,
     toggleLoading: (message: string | null, isLoading: boolean) => void

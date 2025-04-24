@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { SizeType } from "@/lib/types";
 import { SaveResource } from "@/lib/types/dataTypes";
 
-import { validationSchema } from "@/components/templates/save-resource-template/validationSchema";
+import { validationSchema } from "@/components/organisms/save-resource-form/validationSchema";
 
 import {
   useEducativeResourcesStore,

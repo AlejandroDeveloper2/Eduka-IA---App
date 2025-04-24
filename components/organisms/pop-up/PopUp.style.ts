@@ -27,8 +27,8 @@ const PopUpOverlay = styled(Animated.View)`
 const PopUpBox = styled(AnimatedPopUpBox)`
   width: 100%;
   max-height: 80%;
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   background-color: ${Colors.basic.white};
   border-top-right-radius: ${Radius.radius_md}px;
   border-top-left-radius: ${Radius.radius_md}px;

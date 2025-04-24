@@ -77,6 +77,8 @@
   "operations-messages": {
     "saving-resource-msg": "Guardando recurso...",
     "resource-saved-success-msg": "Recurso educativo guardado exitosamente",
+    "editing-resource-msg": "Editando recurso...",
+    "resource-edited-success-msg": "Titulo del recurso editado correctamente",
     "listing-resources-msg": "Cargando recursos guardados...",
     "remove-key-not-found-error-msg": "La clave de almacenamiento no existe",
     "remove-resource-success-msg": "Recursos eliminados exitosamente",

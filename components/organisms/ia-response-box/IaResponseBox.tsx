@@ -9,7 +9,7 @@ import { copyToClipboard, generateUniqueId, getViewer } from "@/lib/utils";
 import { Badge, Typography } from "@/components/atoms";
 import { IconOnlyButton } from "@/components/molecules";
 import PopUp from "../pop-up/PopUp";
-import SaveResourceTemplate from "../../templates/save-resource-template/SaveResourceTemplate";
+import SaveResourceForm from "../save-resource-form/SaveResourceForm";
 
 import {
   IaResponseContainer,
@@ -132,11 +132,10 @@ const IaResponseBox = ({ size }: IaResponseBoxProps): JSX.Element => {
         )}
         size={size}
         isMounted={isMounted}
-        // gesture={gesture}
         animatedPopUpStyle={animatedPopUpStyle}
         closePopUp={closePopUp}
       >
-        <SaveResourceTemplate closePopUp={closePopUp} />
+        <SaveResourceForm closePopUp={closePopUp} />
       </PopUp>
     </IaResponseContainer>
   );

@@ -1,5 +1,10 @@
 import { StateCreator } from "zustand";
-import { documentDirectory, getInfoAsync, deleteAsync } from "expo-file-system";
+import {
+  documentDirectory,
+  getInfoAsync,
+  deleteAsync,
+  moveAsync,
+} from "expo-file-system";
 import { isAvailableAsync, shareAsync } from "expo-sharing";
 import { Toast } from "toastify-react-native";
 
@@ -7,7 +12,7 @@ import {
   DownloadsHistoryStoreActons,
   DownloadsHistoryStoreType,
 } from "./store-type";
-import { DownloadedFileInfo } from "@/lib/types/dataTypes";
+import { DownloadedFileInfo, FileExtensionType } from "@/lib/types/dataTypes";
 
 import { DOWNLOADS_FOLDER } from "@/lib/constants/DownloadsFolder";
 
@@ -46,6 +51,39 @@ export const createActions: StateCreator<
         i18n.t("operations-messages.list-download-files-error-msg"),
         "bottom"
       );
+    } finally {
+      toggleLoading(null, false);
+    }
+  },
+
+  renameDownloadedResource: async (
+    oldName: string,
+    newName: string,
+    extension: FileExtensionType,
+    toggleLoading: (message: string | null, isLoading: boolean) => void
+  ): Promise<void> => {
+    try {
+      toggleLoading(i18n.t("operations-messages.editing-resource-msg"), true);
+
+      const oldFileUri = `${
+        documentDirectory + DOWNLOADS_FOLDER
+      }/${oldName}.${extension}`;
+
+      const newFileUri = `${
+        documentDirectory + DOWNLOADS_FOLDER
+      }/${newName}.${extension}`;
+
+      await moveAsync({ from: oldFileUri, to: newFileUri });
+
+      await get().findDownloadedResources(() => {});
+
+      Toast.success(
+        i18n.t("operations-messages.resource-edited-success-msg"),
+        "bottom"
+      );
+    } catch (e) {
+      console.error(e);
+      Toast.error("No se pudo renombrar el recurso", "bottom");
     } finally {
       toggleLoading(null, false);
     }

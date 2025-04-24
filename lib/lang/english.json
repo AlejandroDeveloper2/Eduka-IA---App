@@ -77,6 +77,8 @@
   "operations-messages": {
     "saving-resource-msg": "Saving resource...",
     "resource-saved-success-msg": "Educational resource successfully saved",
+    "editing-resource-msg": "Editing resource...",
+    "resource-edited-success-msg": "Resource's title successfully updated",
     "listing-resources-msg": "Loading saved resources...",
     "remove-key-not-found-error-msg": "The storage key does not exist",
     "remove-resource-success-msg": "Resources have been deleted successfully",

@@ -11,21 +11,20 @@ import {
 import { COUNTRIES } from "@/lib/constants/Countries";
 import { ACADEMIC_RESOURCES } from "@/lib/constants/AcademicResources";
 import { LANGUAGES } from "@/lib/constants/Languages";
-
 import { Colors } from "@/lib/constants/Colors";
 
 import useResourceFormLogic from "@/lib/hooks/core/useResourceFormLogic";
 
-import { Form } from "@/components/organisms";
+import Form from "../form/Form";
 import { Subtitle } from "@/components/atoms";
 
-interface RequestResourceFormProps {
+interface GenerateResourceFormProps {
   scrollViewRef: React.RefObject<ScrollView>;
 }
 
-const RequestResourceTemplate = ({
+const GenerateResourceForm = ({
   scrollViewRef,
-}: RequestResourceFormProps): JSX.Element => {
+}: GenerateResourceFormProps): JSX.Element => {
   const {
     size,
     isProcessing,
@@ -226,4 +225,4 @@ const RequestResourceTemplate = ({
   );
 };
 
-export default RequestResourceTemplate;
+export default GenerateResourceForm;

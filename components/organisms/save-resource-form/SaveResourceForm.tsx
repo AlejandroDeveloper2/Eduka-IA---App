@@ -2,13 +2,13 @@ import { SaveResource } from "@/lib/types/dataTypes";
 
 import useSaveResourceFormLogic from "@/lib/hooks/core/useSaveResourceFormLogic";
 
-import Form from "@/components/organisms/form/Form";
+import Form from "../form/Form";
 
 interface SaveResourceTemplateProps {
   closePopUp: () => void;
 }
 
-const SaveResourceTemplate = ({
+const SaveResourceForm = ({
   closePopUp,
 }: SaveResourceTemplateProps): JSX.Element => {
   const {
@@ -61,4 +61,4 @@ const SaveResourceTemplate = ({
   );
 };
 
-export default SaveResourceTemplate;
+export default SaveResourceForm;

@@ -7,7 +7,6 @@ export { default as Loader } from "./loader/Loader";
 export { default as DropdownTools } from "./dropdown-tools/DropdownTools";
 export { default as ScreenSection } from "./screen-section/ScreenSection";
 export { default as PanelOption } from "./panel-option/PanelOption";
-export { default as FileCard } from "./file-card/FileCard";
 export { default as LoadingBox } from "./loading-box/LoadingBox";
 export { default as TextViewer } from "./text-viewer/TextViewer";
 export { default as ImageViewer } from "./image-viewer/ImageViewer";

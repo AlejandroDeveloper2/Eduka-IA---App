@@ -25,7 +25,7 @@ import {
   useTranslations,
 } from "..";
 
-import { resourceRequestSchema } from "@/components/templates/request-resource-template/validationSchema";
+import { validationSchema } from "@/components/organisms/generate-resource-form/validationSchema";
 
 import { generateUniqueId, setDropdownSelectedOption } from "@/lib/utils";
 
@@ -67,10 +67,9 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
     updateData,
     handleChange,
     handleSubmit,
-    // clearFormData,
   } = useForm(
     requestFormData ? requestFormData : initialData,
-    resourceRequestSchema(language),
+    validationSchema(language),
     () => {
       const taskId: string = generateUniqueId();
       addTask({
@@ -129,10 +128,6 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
   const promptPanel = usePromptPanel(defaultFormatOption, (value) =>
     updateData("formatOption", value)
   );
-
-  // useEffect(() => {
-  //   clearFormData();
-  // }, [language]);
 
   return {
     size,

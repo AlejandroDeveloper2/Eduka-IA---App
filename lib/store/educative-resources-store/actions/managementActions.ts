@@ -82,6 +82,49 @@ export const managementActions: StateCreator<
     }
   },
 
+  editEducativeResourceTitle: async (
+    resourceId: string,
+    updatedTitle: string,
+    toggleLoading: (message: string | null, isLoading: boolean) => void
+  ): Promise<void> => {
+    try {
+      toggleLoading(i18n.t("operations-messages.editing-resource-msg"), true);
+
+      const educativeResources = await AsyncStorageService.getItem<
+        EducativeResource[]
+      >(storageKey);
+
+      if (!educativeResources) return;
+
+      const resource = educativeResources.find(
+        (resource) => resource.resourceId === resourceId
+      );
+
+      if (!resource) return;
+
+      const updatedResources: EducativeResource[] = educativeResources.map(
+        (resource) => {
+          if (resource.resourceId === resourceId)
+            return { ...resource, title: updatedTitle };
+          return resource;
+        }
+      );
+
+      await AsyncStorageService.setItem(storageKey, updatedResources);
+
+      await get().findEducativeResources("All", () => {});
+
+      Toast.success(
+        i18n.t("operations-messages.resource-edited-success-msg"),
+        "bottom"
+      );
+    } catch (e: unknown) {
+      const error = e as Error;
+      Toast.error(error.message, "bottom");
+    } finally {
+      toggleLoading(null, false);
+    }
+  },
   findEducativeResources: async (
     filter: ListFilter,
     toggleLoading: (message: string | null, isLoading: boolean) => void
