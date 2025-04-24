@@ -7,10 +7,10 @@ import {
   Poppins_400Regular,
   Poppins_300Light,
 } from "@expo-google-fonts/poppins";
-import { PaperProvider } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import ToastManager from "toastify-react-native";
 import { preventAutoHideAsync } from "expo-splash-screen";
+import { Host } from "react-native-portalize";
 
 import { FontProvider } from "@/lib/context/FontContext";
 
@@ -59,14 +59,14 @@ export default function RootLayout() {
 
   return (
     <FontProvider fontsLoaded={loaded}>
-      <PaperProvider>
+      <Host>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <ToastManager config={toastConfig(size)} animationStyle="fade" />
         <StatusBar style="auto" />
-      </PaperProvider>
+      </Host>
     </FontProvider>
   );
 }

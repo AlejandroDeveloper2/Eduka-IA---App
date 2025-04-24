@@ -13,7 +13,7 @@ interface PopUpBodyStyleProps {
 
 const AnimatedPopUpBox = Animated.View;
 
-const PopUpOverlay = styled(Animated.View)`
+const PopUpOverlay = styled.View`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: flex-end;

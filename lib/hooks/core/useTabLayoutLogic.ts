@@ -24,13 +24,8 @@ const useTabLayoutLogic = () => {
     removeEducativeResources,
   } = useEducativeResourcesStore();
 
-  const {
-    isMounted,
-
-    animatedPopUpStyle,
-    openPopUp,
-    closePopUp,
-  } = useAnimatedPopUp();
+  const { isMounted, animatedPopUpStyle, openPopUp, closePopUp } =
+    useAnimatedPopUp();
 
   const { addTask } = useBackgroundTaskStore();
   const { isProcessing, runTask } = useTaskRunner();

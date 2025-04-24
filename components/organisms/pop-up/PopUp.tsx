@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { Portal } from "react-native-paper";
+import { memo, ReactNode } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
+import { Portal } from "react-native-portalize";
 
 import { SizeType } from "@/lib/types";
 
@@ -41,7 +41,6 @@ const PopUp = ({
 
   return (
     <Portal>
-      {/* <GestureHandlerRootView> */}
       <PopUpOverlay>
         <TouchableOpacity
           style={{ ...StyleSheet.absoluteFillObject }}
@@ -64,14 +63,13 @@ const PopUp = ({
         </PopUpBox>
         {/* </GestureDetector> */}
       </PopUpOverlay>
-      {/* </GestureHandlerRootView> */}
     </Portal>
   );
 };
 
-// function areEqual(prevProps: PopUpProps, nextProps: PopUpProps) {
-//   return prevProps.isMounted === nextProps.isMounted;
-// }
+function areEqual(prevProps: PopUpProps, nextProps: PopUpProps) {
+  return prevProps.isMounted === nextProps.isMounted;
+}
 
-// export default memo(PopUp, areEqual) as typeof PopUp;
-export default PopUp;
+export default memo(PopUp, areEqual) as typeof PopUp;
+// export default PopUp;
