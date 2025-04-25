@@ -36,6 +36,7 @@ const GenerateResourceForm = ({
     getInputRef,
     getDropdownRef,
     getInputError,
+    // getInputNestedError,
     handleChange,
     handleSubmit,
     gradeDropdown,
@@ -43,7 +44,18 @@ const GenerateResourceForm = ({
     resourcesDropdown,
     languagesDropdown,
     promptPanel,
+    file,
+    handleAttachFile,
+    handleClearFile,
   } = useResourceFormLogic(scrollViewRef);
+
+  const fileExtensionError = getInputError(
+    `attachedFile.extension` as keyof ResourceRequest
+  );
+
+  const fileSizeError = getInputError(
+    `attachedFile.fileSize` as keyof ResourceRequest
+  );
 
   return (
     <Form
@@ -225,6 +237,27 @@ const GenerateResourceForm = ({
               onClearInput={() => handleChange("promptText", "")}
               onSelectOption={promptPanel.onSelectOption}
               errorMessage={getInputError("promptText")}
+            />
+          </Form.Col>
+        </Form.Row>
+        <Form.Row>
+          <Form.Col size={size} fill={true}>
+            <Form.AttachFileBox
+              size={size}
+              label={"Adjuntar archivo"}
+              file={file && file.fileName}
+              icon="attach-outline"
+              onAttach={async () => await handleAttachFile()}
+              onClearFile={handleClearFile}
+              errorMessage={
+                fileExtensionError
+                  ? fileExtensionError
+                  : fileSizeError
+                  ? fileSizeError
+                  : fileExtensionError && fileSizeError
+                  ? fileExtensionError + ";" + fileSizeError
+                  : undefined
+              }
             />
           </Form.Col>
         </Form.Row>

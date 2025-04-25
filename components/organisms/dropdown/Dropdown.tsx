@@ -1,4 +1,4 @@
-import { memo } from "react";
+// import { memo } from "react";
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -100,14 +100,14 @@ function Dropdown<D>({
   );
 }
 
-function areEqual<D>(prevProps: DropdownProps<D>, nextProps: DropdownProps<D>) {
-  return (
-    prevProps.options === nextProps.options &&
-    prevProps.size === nextProps.size &&
-    prevProps.selectedOption === nextProps.selectedOption
-  );
-}
+// function areEqual<D>(prevProps: DropdownProps<D>, nextProps: DropdownProps<D>) {
+//   return (
+//     prevProps.options === nextProps.options &&
+//     prevProps.size === nextProps.size &&
+//     prevProps.selectedOption === nextProps.selectedOption
+//   );
+// }
 
-export default memo(Dropdown, areEqual) as typeof Dropdown;
+// export default memo(Dropdown, areEqual) as typeof Dropdown;
 
-// export default Dropdown;
+export default Dropdown;

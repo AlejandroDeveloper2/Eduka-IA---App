@@ -12,3 +12,5 @@ export { getViewer } from "./getViewer";
 export { renderHtmlPdf } from "./renderHtmlPdf";
 export { setupNotifications } from "./notifications";
 export { getFontFamily } from "./getFontFamily";
+export { attachFile } from "./attachFile";
+export { getFileTypeHeader } from "./getFileName";

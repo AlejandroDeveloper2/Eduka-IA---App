@@ -2,12 +2,12 @@ import { StateCreator } from "zustand";
 import { Toast } from "toastify-react-native";
 
 import { EducativeResourceStoreType, GenerationActions } from "../store-type";
-import { ResourceRequest } from "@/lib/types/dataTypes";
+import { AttachedFile, ResourceRequest } from "@/lib/types/dataTypes";
 
 import { i18n } from "@/lib/store/lang-store/Lang.store";
 
 import { AsyncStorageService } from "@/services/AsyncStorage.service";
-import { AxiosOpenIAService } from "@/services/AxiosOpenIA.service";
+import { AIAssistantService } from "@/services/AIAssistant.service";
 
 import { buildPromptTemplate, getGeneratedResourceTemplate } from "../helpers";
 
@@ -43,15 +43,21 @@ export const generationActions: StateCreator<
 
       const prompt: string = buildPromptTemplate(resourceRequest);
 
+      const { attachedFile } = resourceRequest;
+      const file: AttachedFile | null =
+        attachedFile.fileUri.length > 0 ? attachedFile : null;
+
       const start = performance.now();
 
       if (resourceRequest.formatOption.key === "Image") {
-        iaImage = await AxiosOpenIAService.postImageEducativeResourceRequest(
-          resourceRequest
+        iaImage = await AIAssistantService.postImageEducativeResourceRequest(
+          prompt,
+          file
         );
       } else {
-        iaContent = await AxiosOpenIAService.postEducativeResourceRequest(
-          prompt
+        iaContent = await AIAssistantService.postEducativeResourceRequest(
+          prompt,
+          file
         );
       }
 
@@ -74,6 +80,7 @@ export const generationActions: StateCreator<
       });
     } catch (e) {
       const error = e as Error;
+      // console.log(e);
       Toast.error(error.message, "bottom");
     } finally {
       set({

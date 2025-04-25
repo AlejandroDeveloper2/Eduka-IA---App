@@ -55,7 +55,7 @@ const useForm = <T>(
 
   const handleSubmit = (): void => {
     const validationResult = validationSchema.validate(data);
-    // console.log(validationResult.errors);
+
     if (validationResult.valid) {
       setErrors(Object({}));
       action();

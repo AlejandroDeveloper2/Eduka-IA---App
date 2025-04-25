@@ -44,6 +44,7 @@ interface ResourceRequest {
   promptText: string;
   formatOption: FormatOption;
   language: string;
+  attachedFile: AttachedFile;
 }
 
 interface Country {
@@ -94,6 +95,13 @@ interface GradeLevel {
   gradeLevelName: string;
 }
 
+interface AttachedFile {
+  fileUri: string;
+  fileSize: number;
+  extension: string;
+  fileName: string;
+}
+
 export type {
   AcademicResource,
   Lang,
@@ -114,4 +122,5 @@ export type {
   FilterOption,
   FilterOptionKey,
   GradeLevel,
+  AttachedFile,
 };

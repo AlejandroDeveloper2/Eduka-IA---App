@@ -27,7 +27,8 @@
       "form-input-language-label": "Select language",
       "form-input-language-placeholder": "Select a language",
       "form-input-language-search": "Search language by name",
-      "form-input-prompt-placeholder": "Describe here your academic resource"
+      "form-input-prompt-placeholder": "Describe here your academic resource",
+      "form-input-file-placeholder": "Attach a file (PDF, webp, jpg, txt) 5MB max"
     },
     "request-resource-form-error-messages": {
       "subject-error-required-msg": "The name of the subject is mandatory",
@@ -42,7 +43,9 @@
       "resource-format-error-required-msg": "The format of the resource is mandatory",
       "resource-format-error-invalid-msg": "Invalid format",
       "language-error-required-msg": "The language to generate the resource is mandatory",
-      "language-error-invalid-msg": "Language not supported"
+      "language-error-invalid-msg": "Language not supported",
+      "file-type-error-msg": "Format not allowed",
+      "file-size-error-msg": "The file must be 5MB or less"
     },
     "save-resource-form-labels": {
       "form-title": "Save resource",

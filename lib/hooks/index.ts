@@ -21,6 +21,7 @@ export { default as useTaskRunner } from "./core/useTaskRunner";
 export { default as useTranslations } from "./core/useTranslations";
 export { default as useScreenDimensions } from "./core/useScreenDimensions";
 export { default as useSplashScreen } from "./core/useSplashScreen";
+export { default as useAttachFile } from "./core/useAttachFile";
 
 export { default as useDownloadsHistoryStore } from "./store/useDownloadsHistoryStore";
 export { default as useEducativeResourcesStore } from "./store/useEducativeResourcesStore";

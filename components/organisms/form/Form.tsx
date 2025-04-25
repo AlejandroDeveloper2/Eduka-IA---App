@@ -15,6 +15,7 @@ import {
   FieldRow,
   FieldColumn,
 } from "./Form.style";
+import AttachFileBox from "../attach-file-box/AttachFileBox";
 
 interface FormProps {
   size: SizeType;
@@ -91,5 +92,6 @@ Form.Col = FormFieldCol;
 Form.Input = InputText;
 Form.Dropdown = Dropdown;
 Form.PromptPanel = PromptPanel;
+Form.AttachFileBox = AttachFileBox;
 
 export default Form;

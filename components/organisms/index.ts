@@ -13,3 +13,4 @@ export { default as GenerateResourceForm } from "./generate-resource-form/Genera
 export { default as SaveResourceForm } from "./save-resource-form/SaveResourceForm";
 export { default as FileCard } from "./file-card/FileCard";
 export { default as EditResourceTitleForm } from "./edit-resource-title-form/EditResourceTitleForm";
+export { default as AttachFileBox } from "./attach-file-box/AttachFileBox";

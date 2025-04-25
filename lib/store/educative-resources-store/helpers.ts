@@ -1,12 +1,14 @@
+import { EncodingType, readAsStringAsync } from "expo-file-system";
+import { printToFileAsync } from "expo-print";
+
 import { EducativeResource, ResourceRequest } from "@/lib/types/dataTypes";
 
 import { generateUniqueId } from "@/lib/utils";
-import { EncodingType, readAsStringAsync } from "expo-file-system";
-import { printToFileAsync } from "expo-print";
 
 export const buildPromptTemplate = (
   resourceRequest: ResourceRequest
 ): string => {
+  const { attachedFile } = resourceRequest;
   return `
   Materia: ${resourceRequest.subject} 
   Grado: ${resourceRequest.grade}
@@ -19,6 +21,11 @@ export const buildPromptTemplate = (
   Idioma: ${resourceRequest.language}
   Descripción del recurso: ${resourceRequest.promptText}
   Formato: ${resourceRequest.formatOption.name}  
+  Archivo Adjunto: ${
+    attachedFile.fileUri.length > 0
+      ? attachedFile.fileUri
+      : "No se adjuntó ningún archivo"
+  }
   `;
 };
 

@@ -28,7 +28,7 @@ const toastConfig = (size: SizeType): ToastConfig => {
         />
       </ToastContainer>
     ),
-    warning: (props) => (
+    warn: (props) => (
       <ToastContainer size={size}>
         <Ionicons
           name="warning-outline"

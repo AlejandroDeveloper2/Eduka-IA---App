@@ -1,6 +1,10 @@
 import { v } from "@/lib/utils";
 
-import { FormatOption, ResourceRequest } from "@/lib/types/dataTypes";
+import {
+  AttachedFile,
+  FormatOption,
+  ResourceRequest,
+} from "@/lib/types/dataTypes";
 
 import { COUNTRIES } from "@/lib/constants/Countries";
 import { ACADEMIC_RESOURCES } from "@/lib/constants/AcademicResources";
@@ -117,4 +121,29 @@ export const validationSchema = (currentLang: LangTag) =>
               "home-screen-translations.request-resource-form-error-messages.language-error-invalid-msg"
             )
       ),
+    attachedFile: v.object<AttachedFile>({
+      fileName: v.string().optional(),
+      extension: v
+        .string()
+        .custom((value) =>
+          ["webp", "jpg", "txt", "pdf"].includes(value as string) ||
+          value === ""
+            ? null
+            : i18n.t(
+                "home-screen-translations.request-resource-form-error-messages.file-type-error-msg"
+              )
+        )
+        .optional(),
+      fileUri: v.string().optional(),
+      fileSize: v
+        .number()
+        .custom((value) =>
+          (value as number) > 5
+            ? i18n.t(
+                "home-screen-translations.request-resource-form-error-messages.file-size-error-msg"
+              )
+            : null
+        )
+        .optional(),
+    }),
   });

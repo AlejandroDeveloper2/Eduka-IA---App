@@ -27,7 +27,8 @@
       "form-input-language-label": "Selecciona un idioma",
       "form-input-language-placeholder": "Selecciona un idioma",
       "form-input-language-search": "Buscar idioma por nombre",
-      "form-input-prompt-placeholder": "Describe aquí tu recurso académico"
+      "form-input-prompt-placeholder": "Describe aquí tu recurso académico",
+      "form-input-file-placeholder": "Adjunta un archivo (PDF, webp, jpg, txt) máximo 5MB"
     },
     "request-resource-form-error-messages": {
       "subject-error-required-msg": "El nombre de la asignatura es obligatorio",
@@ -42,7 +43,9 @@
       "resource-format-error-required-msg": "El formato del recurso es obligatorio",
       "resource-format-error-invalid-msg": "Formato inválido",
       "language-error-required-msg": "El idioma para generar el recurso es obligatorio",
-      "language-error-invalid-msg": "Idioma no soportado"
+      "language-error-invalid-msg": "Idioma no soportado",
+      "file-type-error-msg": "Formato no permitido",
+      "file-size-error-msg": "El archivo debe pesar 5MB o menos"
     },
     "save-resource-form-labels": {
       "form-title": "Guardar recurso",

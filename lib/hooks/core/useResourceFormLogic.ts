@@ -17,6 +17,7 @@ import { LANGUAGES } from "@/lib/constants/Languages";
 import { GRADE_LEVELS } from "@/lib/constants/GradeLevels";
 
 import {
+  useAttachFile,
   useBackgroundTaskStore,
   useDropdown,
   useEducativeResourcesStore,
@@ -31,24 +32,30 @@ import { validationSchema } from "@/components/organisms/generate-resource-form/
 
 import { generateUniqueId, setDropdownSelectedOption } from "@/lib/utils";
 
-const initialData: ResourceRequest = {
-  subject: "",
-  grade: "",
-  country: "",
-  resourceType: "",
-  promptText: "",
-  formatOption: {
-    key: "Text",
-    name: "",
-  },
-  language: "",
-  otherResourceDescription: "",
-};
-
 const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
   const size: SizeType = useScreenDimensions();
 
   const { t, language } = useTranslations();
+
+  const initialData: ResourceRequest = {
+    subject: "",
+    grade: "",
+    country: "",
+    resourceType: "",
+    promptText: "",
+    formatOption: {
+      key: "Text",
+      name: t("text-format-option-label"),
+    },
+    language: "",
+    otherResourceDescription: "",
+    attachedFile: {
+      fileUri: "",
+      fileSize: 0,
+      extension: "",
+      fileName: "",
+    },
+  };
 
   const defaultFormatOption: FormatOption = {
     key: PROMPT_PANEL_OPTIONS[language][0].formatOptionKey,
@@ -143,6 +150,10 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
     updateData("formatOption", value)
   );
 
+  const { file, handleAttachFile, handleClearFile } = useAttachFile((value) =>
+    updateData("attachedFile", value)
+  );
+
   return {
     size,
     isProcessing,
@@ -159,6 +170,9 @@ const useResourceFormLogic = (scrollViewRef: React.RefObject<ScrollView>) => {
     resourcesDropdown,
     languagesDropdown,
     promptPanel,
+    file,
+    handleAttachFile,
+    handleClearFile,
   };
 };
 
