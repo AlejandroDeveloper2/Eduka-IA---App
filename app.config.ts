@@ -17,14 +17,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
     },
-    bundleIdentifier: "com.b-1tech.edukaia",
+    bundleIdentifier: "com.b1tech.edukaia",
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#5E17EB",
     },
-    package: "com.b-1tech.edukaia",
+    package: "com.b1tech.edukaia",
     userInterfaceStyle: "light",
   },
   web: {
