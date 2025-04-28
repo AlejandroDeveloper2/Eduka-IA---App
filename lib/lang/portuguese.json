@@ -28,7 +28,8 @@
       "form-input-language-placeholder": "Selecione um idioma",
       "form-input-language-search": "Buscar idioma pelo nome",
       "form-input-prompt-placeholder": "Descreva aqui o seu recurso acadêmico",
-      "form-input-file-placeholder": "Anexe um arquivo (PDF, webp, jpg, txt) com no máximo 5 MB"
+      "form-input-file-label": "Anexar arquivo (opcional)",
+      "form-input-file-placeholder": "Se você carregar um arquivo, a IA da Eduka analisará o arquivo para fornecer o recurso educacional. Anexe um arquivo (PDF, webp, jpg, txt) com no máximo 5 MB"
     },
     "request-resource-form-error-messages": {
       "subject-error-required-msg": "O nome da disciplina é obrigatório",

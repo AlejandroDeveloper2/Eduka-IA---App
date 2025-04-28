@@ -244,7 +244,9 @@ const GenerateResourceForm = ({
           <Form.Col size={size} fill={true}>
             <Form.AttachFileBox
               size={size}
-              label={"Adjuntar archivo"}
+              label={t(
+                "home-screen-translations.request-resource-form-labels.form-input-file-label"
+              )}
               file={file && file.fileName}
               icon="attach-outline"
               onAttach={async () => await handleAttachFile()}

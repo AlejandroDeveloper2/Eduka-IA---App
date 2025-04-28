@@ -28,7 +28,8 @@
       "form-input-language-placeholder": "Select a language",
       "form-input-language-search": "Search language by name",
       "form-input-prompt-placeholder": "Describe here your academic resource",
-      "form-input-file-placeholder": "Attach a file (PDF, webp, jpg, txt) 5MB max"
+      "form-input-file-label": "Attach file (Optional)",
+      "form-input-file-placeholder": "If you upload a file, the Eduka AI will analyze the file to give you the educational resource. Attach a file (PDF, webp, jpg, txt) 5MB max"
     },
     "request-resource-form-error-messages": {
       "subject-error-required-msg": "The name of the subject is mandatory",

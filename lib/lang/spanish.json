@@ -28,7 +28,8 @@
       "form-input-language-placeholder": "Selecciona un idioma",
       "form-input-language-search": "Buscar idioma por nombre",
       "form-input-prompt-placeholder": "Describe aquí tu recurso académico",
-      "form-input-file-placeholder": "Adjunta un archivo (PDF, webp, jpg, txt) máximo 5MB"
+      "form-input-file-label": "Adjuntar archivo (Opcional)",
+      "form-input-file-placeholder": "Si subes un archivo, la Eduka IA analizará el archivo para darte el recurso educativo. Adjunta un archivo (PDF, webp, jpg, txt) máximo 5MB"
     },
     "request-resource-form-error-messages": {
       "subject-error-required-msg": "El nombre de la asignatura es obligatorio",
