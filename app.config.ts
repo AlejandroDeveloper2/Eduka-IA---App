@@ -12,6 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: "light",
   newArchEnabled: true,
   ios: {
+    buildNumber: "2",
     userInterfaceStyle: "light",
     supportsTablet: true,
     infoPlist: {
