@@ -58,5 +58,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     pt: "./lib/lang/portuguese.json",
   },
 
-  plugins: ["expo-localization"],
+  plugins: ["expo-localization", "react-native-iap"],
 });

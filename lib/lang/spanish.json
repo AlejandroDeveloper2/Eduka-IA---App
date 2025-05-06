@@ -125,5 +125,17 @@
     "task-error-msg-title": "Error en"
   },
   "no-conected-wifi-label": "No estas conectado a internet, conectate a una red de internet para poder generar tus recursos educativos.",
-  "network-state-loading-msg": "Cargando el estado de la red.."
+  "network-state-loading-msg": "Cargando el estado de la red..",
+  "subscriptions-screen-labels": {
+    "screen-title": "Suscribirse",
+    "screen-description": "Para usar nuestra app se requiere una suscripción, puedes elegir el plan que mas se adapte a tus necesidades.",
+    "monthly-plan-title": "Eduka IA Plan Mensual",
+    "monthly-plan-description": "Optimiza tu tiempo y mejora la calidad de tus clases accediendo durante un mes a todas las herramientas de Eduka IA para generar contenidos educativos con inteligencia artificial.",
+    "annual-plan-title": "Eduka IA Plan Anual",
+    "annual-plan-description": "Optimiza tu tiempo y mejora la calidad de tus clases con acceso durante un año completo a todas las herramientas de Eduka IA para generar contenidos educativos con inteligencia artificial.",
+    "button-subscribe-label": "Suscribirse",
+    "subscribe-loading-message": "Procesando compra...",
+    "success-purchase-msg": "¡Te has suscrito exitosamente, Ahora puedes comenzar a crear tus recursos!",
+    "error-purchase-msg": "Ha ocurrido un error al suscribirse al plan selecionado ó Compra cancelada"
+  }
 }
