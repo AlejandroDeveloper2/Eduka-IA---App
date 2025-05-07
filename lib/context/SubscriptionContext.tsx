@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useEffect, useState } from "react";
+import { Platform } from "react-native";
 import * as RNIap from "react-native-iap";
 import { Toast } from "toastify-react-native";
+
 import { useTranslations } from "../hooks";
 
 export type SubscriptionPlanType =
@@ -24,8 +26,10 @@ type ExtendedSubscription = {
 
 interface SubscriptionContextProps {
   hasSubscription: boolean;
-  isProcessing: boolean;
-  requestSubscription: (suscriptionPlan: SubscriptionPlanType) => Promise<void>;
+  requestSubscription: (
+    suscriptionPlan: SubscriptionPlanType,
+    toggleLoading: (message: string | null, isLoading: boolean) => void
+  ) => Promise<void>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextProps | null>(
@@ -35,17 +39,11 @@ const SubscriptionContext = createContext<SubscriptionContextProps | null>(
 export const useSubscriptionContext = () =>
   useContext(SubscriptionContext) as SubscriptionContextProps;
 
-// const subscriptionSkus: string[] = [
-//   "eduka_ia_sucription_2025",
-//   "eduka_ia_sucription_2025_annual",
-// ];
-
 export const SubscriptionProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [hasSubscription, setHasSubscription] = useState<boolean>(false);
 
   const { t } = useTranslations();
@@ -53,7 +51,9 @@ export const SubscriptionProvider = ({
   const initIap = async (): Promise<void> => {
     try {
       await RNIap.initConnection();
-      await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+
+      if (Platform.OS === "android")
+        await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
     } catch (err) {
       console.warn("IAP init error", err);
     }
@@ -62,7 +62,7 @@ export const SubscriptionProvider = ({
   const getSubscriptions = async (productId: string) => {
     try {
       const subs = await RNIap.getSubscriptions({ skus: [productId] });
-      console.log("SUBS:", JSON.stringify(subs, null, 2));
+      // console.log("SUBS:", JSON.stringify(subs, null, 2));
       return subs;
     } catch (err) {
       console.warn(err);
@@ -85,10 +85,14 @@ export const SubscriptionProvider = ({
   };
 
   const requestSubscription = async (
-    suscriptionPlan: SubscriptionPlanType
+    suscriptionPlan: SubscriptionPlanType,
+    toggleLoading: (message: string | null, isLoading: boolean) => void
   ): Promise<void> => {
     try {
-      setIsProcessing(true);
+      toggleLoading(
+        t("subscriptions-screen-labels.subscribe-loading-message"),
+        true
+      );
       const subscriptionPlans = await getSubscriptions(suscriptionPlan);
 
       const sub = subscriptionPlans[0] as ExtendedSubscription;
@@ -97,22 +101,28 @@ export const SubscriptionProvider = ({
         throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
       }
 
-      const offer = sub.subscriptionOfferDetails[0];
-      const offerToken = offer.offerToken;
+      if (Platform.OS === "android") {
+        const offer = sub.subscriptionOfferDetails[0];
+        const offerToken = offer.offerToken;
 
-      if (!offerToken) {
-        throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
+        if (!offerToken) {
+          throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
+        }
+
+        await RNIap.requestSubscription({
+          sku: suscriptionPlan as string,
+          subscriptionOffers: [
+            {
+              sku: suscriptionPlan,
+              offerToken,
+            },
+          ],
+        });
+        return;
       }
 
-      await RNIap.requestSubscription({
-        sku: suscriptionPlan as string,
-        subscriptionOffers: [
-          {
-            sku: suscriptionPlan,
-            offerToken,
-          },
-        ],
-      });
+      await RNIap.requestSubscription({ sku: suscriptionPlan });
+
       Toast.success(
         t("subscriptions-screen-labels.success-purchase-msg"),
         "bottom"
@@ -124,7 +134,7 @@ export const SubscriptionProvider = ({
         "bottom"
       );
     } finally {
-      setIsProcessing(false);
+      toggleLoading(null, false);
     }
   };
 
@@ -139,7 +149,6 @@ export const SubscriptionProvider = ({
   return (
     <SubscriptionContext.Provider
       value={{
-        isProcessing,
         hasSubscription,
         requestSubscription,
       }}

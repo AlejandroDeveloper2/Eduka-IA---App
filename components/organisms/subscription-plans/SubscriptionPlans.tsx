@@ -6,7 +6,7 @@ import {
   useSubscriptionContext,
 } from "@/lib/context/SubscriptionContext";
 
-import { useTranslations } from "@/lib/hooks";
+import { useLoading, useTranslations } from "@/lib/hooks";
 
 import { Colors } from "@/lib/constants/Colors";
 
@@ -29,6 +29,11 @@ interface SubscriptionPlanProps {
   description: string;
   price: string;
   planId: SubscriptionPlanType;
+  loading: {
+    isLoading: boolean;
+    message: string | null;
+    toggleLoading: (message: string | null, isLoading: boolean) => void;
+  };
 }
 
 const SubscriptionPlan = ({
@@ -37,8 +42,9 @@ const SubscriptionPlan = ({
   description,
   price,
   planId,
+  loading,
 }: SubscriptionPlanProps): JSX.Element => {
-  const { isProcessing, requestSubscription } = useSubscriptionContext();
+  const { requestSubscription } = useSubscriptionContext();
   const { t } = useTranslations();
 
   return (
@@ -75,15 +81,11 @@ const SubscriptionPlan = ({
         iconName="cart-outline"
         width="fill"
         size={size}
-        onPress={() => requestSubscription(planId)}
+        onPress={() => requestSubscription(planId, loading.toggleLoading)}
         variant="neutral"
-        disabled={isProcessing}
-        loading={isProcessing}
-        messageLoading={
-          isProcessing
-            ? t("subscriptions-screen-labels.subscribe-loading-message")
-            : undefined
-        }
+        disabled={loading.isLoading}
+        loading={loading.isLoading}
+        messageLoading={loading.message ? loading.message : undefined}
       />
     </SubscriptionPlanCard>
   );
@@ -91,6 +93,9 @@ const SubscriptionPlan = ({
 
 const SubscriptionPlans = ({ size }: SubscriptionPlans): JSX.Element => {
   const { t } = useTranslations();
+
+  const monthlySubLoading = useLoading();
+  const yearlySubLoading = useLoading();
 
   return (
     <SubscriptionPlansContainer>
@@ -100,6 +105,7 @@ const SubscriptionPlans = ({ size }: SubscriptionPlans): JSX.Element => {
         planTitle={t("subscriptions-screen-labels.monthly-plan-title")}
         description={t("subscriptions-screen-labels.monthly-plan-description")}
         price="11.99 USD"
+        loading={monthlySubLoading}
       />
       <SubscriptionPlan
         planId="eduka_ia_sucription_2025_annual"
@@ -107,6 +113,7 @@ const SubscriptionPlans = ({ size }: SubscriptionPlans): JSX.Element => {
         planTitle={t("subscriptions-screen-labels.annual-plan-title")}
         description={t("subscriptions-screen-labels.annual-plan-description")}
         price="99.99 USD"
+        loading={yearlySubLoading}
       />
     </SubscriptionPlansContainer>
   );
