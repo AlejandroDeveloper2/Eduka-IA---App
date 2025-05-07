@@ -4,9 +4,9 @@ import { SizeType } from "@/lib/types";
 
 import { Colors } from "@/lib/constants/Colors";
 
-import { useTranslations } from "@/lib/hooks";
+import { useCanAccessResources, useTranslations } from "@/lib/hooks";
 
-import { ScreenSection } from "@/components/molecules";
+import { InfoCard, ScreenSection } from "@/components/molecules";
 import { Subtitle } from "@/components/atoms";
 
 import { ListHeader } from "./DownloadsHeader.style";
@@ -21,9 +21,16 @@ const DownloadsHeader = ({
   downloadedResources,
 }: DownloadsHeaderProps): JSX.Element => {
   const { t } = useTranslations();
+  const { remaningExpirationDays } = useCanAccessResources();
 
   return (
     <ListHeader>
+      {remaningExpirationDays > 0 && (
+        <InfoCard
+          description={`Tienes acceso para administrar tus recursos descargados por: ${remaningExpirationDays} días.`}
+          size={size}
+        />
+      )}
       <ScreenSection
         title={t("download-history-screen-translations.screen-title")}
         description={t(

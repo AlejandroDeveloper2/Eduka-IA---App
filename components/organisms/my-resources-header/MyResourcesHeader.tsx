@@ -6,9 +6,13 @@ import { SizeType } from "@/lib/types";
 import { Colors } from "@/lib/constants/Colors";
 import { FILTER_OPTIONS } from "@/lib/constants/FilterOptions";
 
-import { useLangStore, useTranslations } from "@/lib/hooks";
+import {
+  useCanAccessResources,
+  useLangStore,
+  useTranslations,
+} from "@/lib/hooks";
 
-import { PanelOption, ScreenSection } from "@/components/molecules";
+import { InfoCard, PanelOption, ScreenSection } from "@/components/molecules";
 import { Subtitle } from "@/components/atoms";
 
 import { FilterList, ListHeader } from "./MyResourcesHeader.style";
@@ -26,9 +30,16 @@ const MyResourcesHeader = ({
 }: MyResourcesHeaderProps): JSX.Element => {
   const { language } = useLangStore();
   const { t } = useTranslations();
+  const { remaningExpirationDays } = useCanAccessResources();
 
   return (
     <ListHeader>
+      {remaningExpirationDays > 0 && (
+        <InfoCard
+          description={`Tienes acceso para visualizar y administrar las vistas previas guardadas de tus recursos  por: ${remaningExpirationDays} días.`}
+          size={size}
+        />
+      )}
       <ScreenSection
         title={t("my-resources-screen-translations.screen-title")}
         description={t("my-resources-screen-translations.screen-description")}

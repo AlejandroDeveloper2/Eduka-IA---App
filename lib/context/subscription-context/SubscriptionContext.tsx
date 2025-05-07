@@ -1,36 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
 import * as RNIap from "react-native-iap";
 import { Toast } from "toastify-react-native";
 
-import { useTranslations } from "../hooks";
+import {
+  ExtendedSubscription,
+  SubscriptionContextProps,
+  SubscriptionPlanType,
+} from "./context-types";
 
-export type SubscriptionPlanType =
-  | "eduka_ia_sucription_2025"
-  | "eduka_ia_sucription_2025_annual";
-
-type ExtendedSubscription = {
-  productId: string;
-  title: string;
-  description: string;
-  price: string;
-  subscriptionOfferDetails?: {
-    basePlanId?: string;
-    offerToken?: string;
-    pricingPhases?: any[];
-    offerId?: string;
-  }[];
-  [key: string]: any;
-};
-
-interface SubscriptionContextProps {
-  hasSubscription: boolean;
-  requestSubscription: (
-    suscriptionPlan: SubscriptionPlanType,
-    toggleLoading: (message: string | null, isLoading: boolean) => void
-  ) => Promise<void>;
-}
+import { useTranslations } from "../../hooks";
+import { AsyncStorageService } from "@/services/AsyncStorage.service";
 
 const SubscriptionContext = createContext<SubscriptionContextProps | null>(
   null
@@ -45,6 +25,7 @@ export const SubscriptionProvider = ({
   children: React.ReactNode;
 }) => {
   const [hasSubscription, setHasSubscription] = useState<boolean>(false);
+  const [cancelDate, setCancelDate] = useState<string | null>(null);
 
   const { t } = useTranslations();
 
@@ -62,7 +43,6 @@ export const SubscriptionProvider = ({
   const getSubscriptions = async (productId: string) => {
     try {
       const subs = await RNIap.getSubscriptions({ skus: [productId] });
-      // console.log("SUBS:", JSON.stringify(subs, null, 2));
       return subs;
     } catch (err) {
       console.warn(err);
@@ -70,17 +50,44 @@ export const SubscriptionProvider = ({
     }
   };
 
-  const checkPurchase = async (): Promise<boolean> => {
+  const checkPurchase = async () => {
     try {
       const purchases = await RNIap.getAvailablePurchases();
-      return purchases.some(
-        (p) =>
-          p.productId === "eduka_ia_sucription_2025" ||
-          p.productId === "eduka_ia_sucription_2025_annual"
+      const subscription = purchases.find(
+        (purchase) =>
+          purchase.productId === "eduka_ia_sucription_2025" ||
+          purchase.productId === "eduka_ia_sucription_2025_annual"
       );
+
+      if (!subscription) return null;
+
+      return subscription;
     } catch (err) {
       console.warn("Error checking purchases", err);
-      return false;
+      return null;
+    }
+  };
+
+  const getSubscriptionStatus = async () => {
+    try {
+      const subscription = await checkPurchase();
+
+      if (!subscription) return { isSubscribed: false };
+
+      const platformData = subscription as RNIap.SubscriptionPurchase;
+
+      const isAutoRenewing = platformData.autoRenewingAndroid as boolean;
+
+      return {
+        isSubscribed: true,
+        isAutoRenewing,
+        transactionDate: platformData.transactionDate,
+      };
+    } catch (error) {
+      console.warn(error);
+      return {
+        isSubscribed: false,
+      };
     }
   };
 
@@ -93,21 +100,20 @@ export const SubscriptionProvider = ({
         t("subscriptions-screen-labels.subscribe-loading-message"),
         true
       );
-      const subscriptionPlans = await getSubscriptions(suscriptionPlan);
 
-      const sub = subscriptionPlans[0] as ExtendedSubscription;
+      const [sub] = (await getSubscriptions(
+        suscriptionPlan
+      )) as ExtendedSubscription[];
 
-      if (!sub?.subscriptionOfferDetails?.length) {
+      if (!sub?.subscriptionOfferDetails?.length)
         throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
-      }
 
       if (Platform.OS === "android") {
         const offer = sub.subscriptionOfferDetails[0];
         const offerToken = offer.offerToken;
 
-        if (!offerToken) {
+        if (!offerToken)
           throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
-        }
 
         await RNIap.requestSubscription({
           sku: suscriptionPlan as string,
@@ -118,10 +124,9 @@ export const SubscriptionProvider = ({
             },
           ],
         });
-        return;
+      } else {
+        await RNIap.requestSubscription({ sku: suscriptionPlan });
       }
-
-      await RNIap.requestSubscription({ sku: suscriptionPlan });
 
       Toast.success(
         t("subscriptions-screen-labels.success-purchase-msg"),
@@ -138,11 +143,33 @@ export const SubscriptionProvider = ({
     }
   };
 
+  const checkAndStoreCancelDate = async (): Promise<void> => {
+    const { isSubscribed, isAutoRenewing } = await getSubscriptionStatus();
+
+    if (!isAutoRenewing && isSubscribed) {
+      const storagedCancelDate = await AsyncStorageService.getItem<string>(
+        "cancelDate"
+      );
+
+      if (!storagedCancelDate) {
+        const cancelDate: string = new Date().toISOString();
+        setCancelDate(cancelDate);
+        await AsyncStorageService.setItem("cancelDate", cancelDate);
+      } else setCancelDate(storagedCancelDate);
+    }
+
+    if (isSubscribed && isAutoRenewing) {
+      setCancelDate(null);
+      await AsyncStorageService.deleteItem("cancelDate");
+    }
+  };
+
   useEffect(() => {
     (async () => {
       await initIap();
-      const isSubscribed = await checkPurchase();
+      const { isSubscribed } = await getSubscriptionStatus();
       setHasSubscription(isSubscribed);
+      await checkAndStoreCancelDate();
     })();
   }, []);
 
@@ -150,6 +177,7 @@ export const SubscriptionProvider = ({
     <SubscriptionContext.Provider
       value={{
         hasSubscription,
+        cancelDate,
         requestSubscription,
       }}
     >

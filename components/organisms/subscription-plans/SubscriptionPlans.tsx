@@ -4,7 +4,7 @@ import { SizeType } from "@/lib/types";
 import {
   SubscriptionPlanType,
   useSubscriptionContext,
-} from "@/lib/context/SubscriptionContext";
+} from "@/lib/context/subscription-context/SubscriptionContext";
 
 import { useLoading, useTranslations } from "@/lib/hooks";
 

@@ -13,7 +13,7 @@ import { preventAutoHideAsync } from "expo-splash-screen";
 import { Host } from "react-native-portalize";
 
 import { FontProvider } from "@/lib/context/FontContext";
-import { SubscriptionProvider } from "@/lib/context/SubscriptionContext";
+import { SubscriptionProvider } from "@/lib/context/subscription-context/SubscriptionContext";
 
 import {
   useLanguageListener,

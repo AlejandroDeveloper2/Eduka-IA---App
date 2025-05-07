@@ -1,4 +1,4 @@
-import { useSubscriptionContext } from "@/lib/context/SubscriptionContext";
+import { useSubscriptionContext } from "@/lib/context/subscription-context/SubscriptionContext";
 
 import { useScreenDimensions } from "@/lib/hooks";
 

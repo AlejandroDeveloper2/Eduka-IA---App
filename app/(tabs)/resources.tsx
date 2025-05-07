@@ -1,16 +1,22 @@
+import { ExpiredAccessBox } from "@/components/molecules";
 import { MyResourcesTemplate } from "@/components/templates";
 
-import { useScreenDimensions } from "@/lib/hooks";
+import { useCanAccessResources, useScreenDimensions } from "@/lib/hooks";
 
 import { PageContent, RootContainerView } from "@/styles/GlobalStyles.style";
 
 function MyResourcesScreen(): JSX.Element {
   const size = useScreenDimensions();
+  const { isExpiredAccess } = useCanAccessResources();
 
   return (
     <RootContainerView>
       <PageContent size={size}>
-        <MyResourcesTemplate />
+        {isExpiredAccess ? (
+          <ExpiredAccessBox size={size} />
+        ) : (
+          <MyResourcesTemplate />
+        )}
       </PageContent>
     </RootContainerView>
   );

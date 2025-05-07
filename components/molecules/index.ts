@@ -16,3 +16,4 @@ export { default as ToolBar } from "./tool-bar/ToolBar";
 export { default as NoConnectedBox } from "./no-connect-box/NoConnectedBox";
 export { default as Splash } from "./splash/Splash";
 export { default as InfoCard } from "./info-card/InfoCard";
+export { default as ExpiredAccessBox } from "./expired-access-box/ExpiredAccessBox";
