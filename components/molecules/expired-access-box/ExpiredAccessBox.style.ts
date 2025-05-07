@@ -8,6 +8,7 @@ const BoxContainer = styled.View`
   justify-content: center;
   align-items: center;
   gap: ${Spacing.spacing_2xl}px;
+  margin-top: ${Spacing.spacing_lg}px;
 `;
 
 export { BoxContainer };
