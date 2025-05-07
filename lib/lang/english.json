@@ -72,13 +72,17 @@
     "loader-description": "The educational resources are being downloaded. The process may take a few seconds.",
     "list-filters-title": "Search filters",
     "list-empty-msg": "No educational resources saved yet",
-    "tool-bar-label": "Selected resources"
+    "tool-bar-label": "Selected resources",
+    "can-access-info": "You have access to view and manage the saved previews of your resources for:",
+    "can-access-remaning-time": "days."
   },
   "download-history-screen-translations": {
     "screen-title": "Download history",
     "screen-description": "Easily view and share your converted and downloaded resources.",
     "file-list-title": "My downloaded resources",
-    "file-list-empty-msg": "Your educational resources history is empty"
+    "file-list-empty-msg": "Your educational resources history is empty",
+    "can-access-info": "You have access to manage your downloaded resources for:",
+    "can-access-remaning-time": "days."
   },
   "operations-messages": {
     "saving-resource-msg": "Saving resource...",
@@ -137,5 +141,10 @@
     "subscribe-loading-message": "Processing purchase...",
     "success-purchase-msg": "You've successfully subscribed! You can now start creating your resources.",
     "error-purchase-msg": "An error occurred while subscribing to the selected plan or the purchase was canceled."
+  },
+  "expired-access-box-labels": {
+    "title": "Subscribe again to regain the access",
+    "description": "The period of 30 days since the cancellation of your subscription to Eduka IA has expired, to regain access you can renew it by clicking on the button below.",
+    "button-label": "Show subscription plans"
   }
 }

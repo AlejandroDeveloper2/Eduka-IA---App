@@ -72,13 +72,17 @@
     "loader-description": "Os recursos educacionais estão sendo baixados. O processo pode levar alguns segundos.",
     "list-filters-title": "Filtros de pesquisa",
     "list-empty-msg": "Nenhum recurso educacional salvo ainda",
-    "tool-bar-label": "Recursos selecionados"
+    "tool-bar-label": "Recursos selecionados",
+    "can-access-info": "Você tem acesso para visualizar e gerenciar as prévias salvas dos seus recursos por:",
+    "can-access-remaning-time": "dias."
   },
   "download-history-screen-translations": {
     "screen-title": "Histórico de Descarregamento",
     "screen-description": "Visualize e compartilhe facilmente seus recursos convertidos e baixados.",
     "file-list-title": "Meus recursos baixados",
-    "file-list-empty-msg": "Seu histórico de recursos educacionais está vazio"
+    "file-list-empty-msg": "Seu histórico de recursos educacionais está vazio",
+    "can-access-info": "Você tem acesso para gerir os recursos descarregados por:",
+    "can-access-remaning-time": "dias."
   },
   "operations-messages": {
     "saving-resource-msg": "Salvando recurso...",
@@ -137,5 +141,10 @@
     "subscribe-loading-message": "Processando compra...",
     "success-purchase-msg": "Você se inscreveu com sucesso! Agora pode começar a criar seus recursos.",
     "error-purchase-msg": "Ocorreu um erro ao assinar o plano selecionado ou a compra foi cancelada."
+  },
+  "expired-access-box-labels": {
+    "title": "Assine novamente para recuperar o acesso",
+    "description": "O período de 30 dias desde o cancelamento de sua assinatura da Eduka IA expirou. Para recuperar o acesso, você pode renová-lo clicando no botão abaixo.",
+    "button-label": "Exibir planos de assinatura"
   }
 }

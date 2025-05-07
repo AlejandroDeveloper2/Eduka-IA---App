@@ -5,6 +5,8 @@ import { SizeType } from "@/lib/types";
 
 import { Colors } from "@/lib/constants/Colors";
 
+import { useTranslations } from "@/lib/hooks";
+
 import ScreenSection from "../screen-section/ScreenSection";
 import ButtonWithLabel from "../button/ButtonWithLabel";
 
@@ -17,13 +19,13 @@ interface ExpiredAccessBoxProps {
 const ExpiredAccessBox = ({ size }: ExpiredAccessBoxProps): JSX.Element => {
   const router = useRouter();
 
+  const { t } = useTranslations();
+
   return (
     <BoxContainer>
       <ScreenSection
-        title={"Suscribete de nuevo para recuperar el acceso"}
-        description={
-          "Se ha terminado tu plazo de 30 días despues de tu cancelación a la suscripción de Eduka IA, puedes volver a renovarla tocando el botón de abajo"
-        }
+        title={t("expired-access-box-labels.title")}
+        description={t("expired-access-box-labels.description")}
         Icon={() => (
           <Ionicons
             name="information-circle-outline"
@@ -34,7 +36,7 @@ const ExpiredAccessBox = ({ size }: ExpiredAccessBoxProps): JSX.Element => {
         size={size}
       />
       <ButtonWithLabel
-        label="Ver planes de suscripción"
+        label={t("expired-access-box-labels.button-label")}
         iconName="star-outline"
         size={size}
         variant="primary"

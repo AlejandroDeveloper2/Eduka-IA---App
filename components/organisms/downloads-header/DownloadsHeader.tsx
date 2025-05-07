@@ -27,7 +27,11 @@ const DownloadsHeader = ({
     <ListHeader>
       {remaningExpirationDays > 0 && (
         <InfoCard
-          description={`Tienes acceso para administrar tus recursos descargados por: ${remaningExpirationDays} días.`}
+          description={`${t(
+            "download-history-screen-translations.can-access-info"
+          )} ${remaningExpirationDays} ${t(
+            "download-history-screen-translations.remaning-time"
+          )}`}
           size={size}
         />
       )}

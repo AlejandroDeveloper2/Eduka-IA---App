@@ -36,7 +36,11 @@ const MyResourcesHeader = ({
     <ListHeader>
       {remaningExpirationDays > 0 && (
         <InfoCard
-          description={`Tienes acceso para visualizar y administrar las vistas previas guardadas de tus recursos  por: ${remaningExpirationDays} días.`}
+          description={`${t(
+            "my-resources-screen-translations.can-access-info"
+          )} ${remaningExpirationDays} ${t(
+            "my-resources-screen-translations.remaning-time"
+          )}`}
           size={size}
         />
       )}
