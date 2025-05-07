@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useSubscriptionContext } from "@/lib/context/subscription-context/SubscriptionContext";
+import { useSubscriptionContext } from "../../context/subscription-context/SubscriptionContext";
 
 const useCanAccessResources = () => {
   const [isExpiredAccess, setExpiredAccess] = useState<boolean>(false);
