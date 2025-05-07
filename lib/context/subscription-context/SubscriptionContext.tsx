@@ -9,7 +9,7 @@ import {
   SubscriptionPlanType,
 } from "./context-types";
 
-import { useTranslations } from "../../hooks";
+import useTranslations from "../../hooks/core/useTranslations";
 import { AsyncStorageService } from "@/services/AsyncStorage.service";
 
 const SubscriptionContext = createContext<SubscriptionContextProps | null>(
