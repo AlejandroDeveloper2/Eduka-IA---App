@@ -5,14 +5,14 @@ import { ExpoConfig, ConfigContext } from "@expo/config";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   name: "Eduka IA",
   slug: "eduka-ia",
-  version: "1.0.0",
+  version: "1.0.1",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "myapp",
   userInterfaceStyle: "light",
   newArchEnabled: true,
   ios: {
-    buildNumber: "2",
+    buildNumber: "3",
     userInterfaceStyle: "light",
     supportsTablet: true,
     infoPlist: {
@@ -27,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "com.b1tech.edukaia",
     userInterfaceStyle: "light",
-    versionCode: 3,
+    versionCode: 4,
   },
   web: {
     bundler: "metro",
