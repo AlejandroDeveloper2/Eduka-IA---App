@@ -3,6 +3,13 @@
     "version": ">= 2.7.1"
   },
   "build": {
+    "dev-client": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "development": {
       "distribution": "internal",
       "android": {

@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { SizeType } from "@/lib/types";
 import {
-  SubscriptionPlan,
+  SubscriptionPlanType,
   useSubscriptionContext,
 } from "@/lib/context/SubscriptionContext";
 
@@ -28,7 +28,7 @@ interface SubscriptionPlanProps {
   planTitle: string;
   description: string;
   price: string;
-  planId: SubscriptionPlan;
+  planId: SubscriptionPlanType;
 }
 
 const SubscriptionPlan = ({

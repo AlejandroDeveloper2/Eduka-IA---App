@@ -12,6 +12,7 @@ const SubscriptionPlansContainer = styled.View`
   gap: ${Spacing.spacing_md}px;
   justify-content: flex-start;
   align-items: center;
+  margin-top: ${Spacing.spacing_md}px;
 `;
 
 const SubscriptionPlanHeader = styled.View`
@@ -23,6 +24,7 @@ const SubscriptionPlanHeader = styled.View`
 `;
 
 const SubscriptionPlanCard = styled.View`
+  width: 100%;
   background-color: ${Colors.primary[400]};
   border-radius: ${Radius.radius_md}px;
   display: flex;

@@ -13,10 +13,7 @@ import { preventAutoHideAsync } from "expo-splash-screen";
 import { Host } from "react-native-portalize";
 
 import { FontProvider } from "@/lib/context/FontContext";
-import {
-  SubscriptionProvider,
-  useSubscriptionContext,
-} from "@/lib/context/SubscriptionContext";
+import { SubscriptionProvider } from "@/lib/context/SubscriptionContext";
 
 import {
   useLanguageListener,
@@ -33,8 +30,6 @@ export default function RootLayout() {
   const [showSplash, setShowSplash] = useState<boolean>(true);
 
   const appReady = useSplashScreen();
-
-  const { hasSubscription } = useSubscriptionContext();
 
   useLanguageListener();
 
@@ -68,14 +63,7 @@ export default function RootLayout() {
       <SubscriptionProvider>
         <Host>
           <Stack>
-            {hasSubscription ? (
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            ) : (
-              <Stack.Screen
-                name="subscriptions"
-                options={{ headerShown: false }}
-              />
-            )}
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
           <ToastManager config={toastConfig(size)} animationStyle="fade" />

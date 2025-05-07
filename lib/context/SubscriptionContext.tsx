@@ -1,17 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useEffect, useState } from "react";
 import * as RNIap from "react-native-iap";
 import { Toast } from "toastify-react-native";
 import { useTranslations } from "../hooks";
 
-export type SubscriptionPlan =
+export type SubscriptionPlanType =
   | "eduka_ia_sucription_2025"
   | "eduka_ia_sucription_2025_annual";
+
+type ExtendedSubscription = {
+  productId: string;
+  title: string;
+  description: string;
+  price: string;
+  subscriptionOfferDetails?: {
+    basePlanId?: string;
+    offerToken?: string;
+    pricingPhases?: any[];
+    offerId?: string;
+  }[];
+  [key: string]: any;
+};
 
 interface SubscriptionContextProps {
   hasSubscription: boolean;
   isProcessing: boolean;
-  getSubscriptions: () => Promise<RNIap.Subscription[]>;
-  requestSubscription: (suscriptionPlan: SubscriptionPlan) => Promise<void>;
+  requestSubscription: (suscriptionPlan: SubscriptionPlanType) => Promise<void>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextProps | null>(
@@ -21,10 +35,10 @@ const SubscriptionContext = createContext<SubscriptionContextProps | null>(
 export const useSubscriptionContext = () =>
   useContext(SubscriptionContext) as SubscriptionContextProps;
 
-const subscriptionSkus: string[] = [
-  "eduka_ia_sucription_2025",
-  "eduka_ia_sucription_2025_annual",
-];
+// const subscriptionSkus: string[] = [
+//   "eduka_ia_sucription_2025",
+//   "eduka_ia_sucription_2025_annual",
+// ];
 
 export const SubscriptionProvider = ({
   children,
@@ -45,9 +59,10 @@ export const SubscriptionProvider = ({
     }
   };
 
-  const getSubscriptions = async () => {
+  const getSubscriptions = async (productId: string) => {
     try {
-      const subs = await RNIap.getSubscriptions({ skus: subscriptionSkus });
+      const subs = await RNIap.getSubscriptions({ skus: [productId] });
+      console.log("SUBS:", JSON.stringify(subs, null, 2));
       return subs;
     } catch (err) {
       console.warn(err);
@@ -70,11 +85,34 @@ export const SubscriptionProvider = ({
   };
 
   const requestSubscription = async (
-    suscriptionPlan: SubscriptionPlan
+    suscriptionPlan: SubscriptionPlanType
   ): Promise<void> => {
     try {
       setIsProcessing(true);
-      await RNIap.requestSubscription({ sku: suscriptionPlan });
+      const subscriptionPlans = await getSubscriptions(suscriptionPlan);
+
+      const sub = subscriptionPlans[0] as ExtendedSubscription;
+
+      if (!sub?.subscriptionOfferDetails?.length) {
+        throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
+      }
+
+      const offer = sub.subscriptionOfferDetails[0];
+      const offerToken = offer.offerToken;
+
+      if (!offerToken) {
+        throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
+      }
+
+      await RNIap.requestSubscription({
+        sku: suscriptionPlan as string,
+        subscriptionOffers: [
+          {
+            sku: suscriptionPlan,
+            offerToken,
+          },
+        ],
+      });
       Toast.success(
         t("subscriptions-screen-labels.success-purchase-msg"),
         "bottom"
@@ -103,7 +141,6 @@ export const SubscriptionProvider = ({
       value={{
         isProcessing,
         hasSubscription,
-        getSubscriptions,
         requestSubscription,
       }}
     >
