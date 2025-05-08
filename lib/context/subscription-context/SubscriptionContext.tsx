@@ -124,16 +124,18 @@ export const SubscriptionProvider = ({
             },
           ],
         });
+        setHasSubscription(true);
       } else {
         await RNIap.requestSubscription({ sku: suscriptionPlan });
+        setHasSubscription(true);
       }
-
       Toast.success(
         t("subscriptions-screen-labels.success-purchase-msg"),
         "bottom"
       );
     } catch (err) {
       console.warn("Error starting subscription", err);
+      setHasSubscription(false);
       Toast.error(
         t("subscriptions-screen-labels.error-purchase-msg"),
         "bottom"

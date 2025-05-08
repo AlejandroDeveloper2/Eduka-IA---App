@@ -27,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "com.b1tech.edukaia",
     userInterfaceStyle: "light",
-    versionCode: 4,
+    versionCode: 5,
   },
   web: {
     bundler: "metro",
