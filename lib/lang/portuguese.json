@@ -1,5 +1,6 @@
 {
   "home-screen-translations": {
+    "subs-checking-loading-msg": "Carregamento...",
     "loader-title": "Gerando recurso...",
     "loader-description": "O recurso educacional solicitado está sendo gerado. Isso pode levar alguns minutos.",
     "screen-title": "Eduka IA - Gerador de recursos educacionais",
@@ -74,7 +75,8 @@
     "list-empty-msg": "Nenhum recurso educacional salvo ainda",
     "tool-bar-label": "Recursos selecionados",
     "can-access-info": "Você tem acesso para visualizar e gerenciar as prévias salvas dos seus recursos por:",
-    "can-access-remaning-time": "dias."
+    "can-access-remaning-time": "dias.",
+    "subs-checking-loading-msg": "Carregamento..."
   },
   "download-history-screen-translations": {
     "screen-title": "Histórico de Descarregamento",
@@ -82,7 +84,8 @@
     "file-list-title": "Meus recursos baixados",
     "file-list-empty-msg": "Seu histórico de recursos educacionais está vazio",
     "can-access-info": "Você tem acesso para gerir os recursos descarregados por:",
-    "can-access-remaning-time": "dias."
+    "can-access-remaning-time": "dias.",
+    "subs-checking-loading-msg": "Carregamento..."
   },
   "operations-messages": {
     "saving-resource-msg": "Salvando recurso...",

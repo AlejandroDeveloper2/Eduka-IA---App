@@ -39,7 +39,7 @@ const MyResourcesHeader = ({
           description={`${t(
             "my-resources-screen-translations.can-access-info"
           )} ${remaningExpirationDays} ${t(
-            "my-resources-screen-translations.remaning-time"
+            "my-resources-screen-translations.can-access-remaning-time"
           )}`}
           size={size}
         />

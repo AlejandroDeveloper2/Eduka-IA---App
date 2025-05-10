@@ -30,7 +30,7 @@ const DownloadsHeader = ({
           description={`${t(
             "download-history-screen-translations.can-access-info"
           )} ${remaningExpirationDays} ${t(
-            "download-history-screen-translations.remaning-time"
+            "download-history-screen-translations.can-access-remaning-time"
           )}`}
           size={size}
         />

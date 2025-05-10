@@ -1,6 +1,6 @@
 import { useSubscriptionContext } from "@/lib/context/subscription-context/SubscriptionContext";
 
-import { useScreenDimensions } from "@/lib/hooks";
+import { useScreenDimensions, useTranslations } from "@/lib/hooks";
 
 import { HomeTemplate, SubscriptionsTemplate } from "@/components/templates";
 
@@ -9,13 +9,17 @@ import { LoadingBox } from "@/components/molecules";
 
 export default function HomeScreen() {
   const size = useScreenDimensions();
+  const { t } = useTranslations();
   const { loadingSubscription, hasSubscription } = useSubscriptionContext();
 
   return (
     <RootContainerView>
       <PageContent size={size}>
         {loadingSubscription ? (
-          <LoadingBox size={size} message="..." />
+          <LoadingBox
+            size={size}
+            message={t("home-screen-translations.subs-checking-loading-msg")}
+          />
         ) : hasSubscription ? (
           <HomeTemplate />
         ) : (

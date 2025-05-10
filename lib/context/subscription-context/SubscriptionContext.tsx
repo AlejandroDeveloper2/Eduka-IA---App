@@ -86,7 +86,7 @@ export const SubscriptionProvider = ({
       const isAutoRenewing =
         Platform.OS === "android"
           ? (platformData.autoRenewingAndroid as boolean)
-          : subscription !== null && iosTransactionDate;
+          : ((subscription !== null && iosTransactionDate) as boolean);
 
       return {
         isSubscribed: true,
@@ -177,6 +177,7 @@ export const SubscriptionProvider = ({
         setCancelDate(cancelDate);
         await AsyncStorageService.setItem("cancelDate", cancelDate);
       } else setCancelDate(storagedCancelDate);
+      setHasSubscription(false);
     }
 
     if (isSubscribed && isAutoRenewing) {

@@ -1,5 +1,6 @@
 {
   "home-screen-translations": {
+    "subs-checking-loading-msg": "Loading...",
     "loader-title": "Generating Resource...",
     "loader-description": "The educational resource you have requested is being generated.  This may take a few minutes",
     "screen-title": "Eduka IA - Educational resources generator",
@@ -74,7 +75,8 @@
     "list-empty-msg": "No educational resources saved yet",
     "tool-bar-label": "Selected resources",
     "can-access-info": "You have access to view and manage the saved previews of your resources for:",
-    "can-access-remaning-time": "days."
+    "can-access-remaning-time": "days.",
+    "subs-checking-loading-msg": "Loading..."
   },
   "download-history-screen-translations": {
     "screen-title": "Download history",
@@ -82,7 +84,8 @@
     "file-list-title": "My downloaded resources",
     "file-list-empty-msg": "Your educational resources history is empty",
     "can-access-info": "You have access to manage your downloaded resources for:",
-    "can-access-remaning-time": "days."
+    "can-access-remaning-time": "days.",
+    "subs-checking-loading-msg": "Loading..."
   },
   "operations-messages": {
     "saving-resource-msg": "Saving resource...",

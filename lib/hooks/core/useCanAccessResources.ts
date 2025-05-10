@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 
 import { useSubscriptionContext } from "../../context/subscription-context/SubscriptionContext";
+import useTranslations from "./useTranslations";
 
 const useCanAccessResources = () => {
+  const gracePeriodInDays = 30;
   const [isExpiredAccess, setExpiredAccess] = useState<boolean>(false);
   const [remaningExpirationDays, setRemaningExpirationDays] =
     useState<number>(0);
 
-  const { cancelDate } = useSubscriptionContext();
+  const { cancelDate, loadingSubscription } = useSubscriptionContext();
+  const { t } = useTranslations();
 
   const calculateExpirationAccessDate = (): void => {
     if (!cancelDate) {
@@ -17,14 +20,13 @@ const useCanAccessResources = () => {
       const parsedCancelDate = new Date(cancelDate);
       const now = new Date();
 
-      const remaningDays = Math.floor(
+      const diffInDays = Math.floor(
         (now.getTime() - parsedCancelDate.getTime()) / (1000 * 60 * 60 * 24)
       );
-
-      if (remaningDays <= 30) setExpiredAccess(false);
+      if (diffInDays <= 30) setExpiredAccess(false);
       else setExpiredAccess(true);
 
-      setRemaningExpirationDays(remaningDays);
+      setRemaningExpirationDays(gracePeriodInDays - diffInDays);
     }
   };
 
@@ -35,6 +37,8 @@ const useCanAccessResources = () => {
   return {
     isExpiredAccess,
     remaningExpirationDays,
+    loadingSubscription,
+    t,
   };
 };
 
