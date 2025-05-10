@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { Platform, AppState } from "react-native";
 import * as RNIap from "react-native-iap";
 import { Toast } from "toastify-react-native";
 
@@ -26,6 +26,8 @@ export const SubscriptionProvider = ({
 }) => {
   const [hasSubscription, setHasSubscription] = useState<boolean>(false);
   const [cancelDate, setCancelDate] = useState<string | null>(null);
+  const [loadingSubscription, setLoadingSubscription] =
+    useState<boolean>(false);
 
   const { t } = useTranslations();
 
@@ -70,13 +72,20 @@ export const SubscriptionProvider = ({
 
   const getSubscriptionStatus = async () => {
     try {
+      setLoadingSubscription(true);
       const subscription = await checkPurchase();
 
       if (!subscription) return { isSubscribed: false };
 
       const platformData = subscription as RNIap.SubscriptionPurchase;
+      const iosTransactionDate = await AsyncStorageService.getItem<string>(
+        "iosTransactionDate"
+      );
 
-      const isAutoRenewing = platformData.autoRenewingAndroid as boolean;
+      const isAutoRenewing =
+        Platform.OS === "android"
+          ? (platformData.autoRenewingAndroid as boolean)
+          : subscription !== null && iosTransactionDate;
 
       return {
         isSubscribed: true,
@@ -88,6 +97,8 @@ export const SubscriptionProvider = ({
       return {
         isSubscribed: false,
       };
+    } finally {
+      setLoadingSubscription(false);
     }
   };
 
@@ -126,7 +137,14 @@ export const SubscriptionProvider = ({
         });
         setHasSubscription(true);
       } else {
-        await RNIap.requestSubscription({ sku: suscriptionPlan });
+        const purchase = (await RNIap.requestSubscription({
+          sku: suscriptionPlan,
+        })) as RNIap.SubscriptionPurchase;
+        await AsyncStorageService.setItem<number>(
+          "iosTransactionDate",
+          purchase.transactionDate
+        );
+
         setHasSubscription(true);
       }
       Toast.success(
@@ -167,17 +185,35 @@ export const SubscriptionProvider = ({
   };
 
   useEffect(() => {
-    (async () => {
+    const checkAndUpdateSubscription = async () => {
       await initIap();
       const { isSubscribed } = await getSubscriptionStatus();
       setHasSubscription(isSubscribed);
       await checkAndStoreCancelDate();
-    })();
+    };
+
+    checkAndUpdateSubscription();
+
+    const handleAppStateChange = async (nextAppState: string) => {
+      if (nextAppState === "active") {
+        await checkAndUpdateSubscription();
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   return (
     <SubscriptionContext.Provider
       value={{
+        loadingSubscription,
         hasSubscription,
         cancelDate,
         requestSubscription,

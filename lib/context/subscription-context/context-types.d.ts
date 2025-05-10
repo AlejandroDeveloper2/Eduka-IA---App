@@ -20,6 +20,7 @@ type ExtendedSubscription = {
 interface SubscriptionContextProps {
   hasSubscription: boolean;
   cancelDate: string | null;
+  loadingSubscription: boolean;
   requestSubscription: (
     suscriptionPlan: SubscriptionPlanType,
     toggleLoading: (message: string | null, isLoading: boolean) => void
