@@ -55,6 +55,7 @@ export const SubscriptionProvider = ({
   const checkPurchase = async () => {
     try {
       const purchases = await RNIap.getAvailablePurchases();
+
       const subscription = purchases.find(
         (purchase) =>
           purchase.productId === "eduka_ia_sucription_2025" ||
@@ -116,10 +117,10 @@ export const SubscriptionProvider = ({
         suscriptionPlan
       )) as ExtendedSubscription[];
 
-      if (!sub?.subscriptionOfferDetails?.length)
-        throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
-
       if (Platform.OS === "android") {
+        if (!sub?.subscriptionOfferDetails?.length)
+          throw new Error(t("subscriptions-screen-labels.error-purchase-msg"));
+
         const offer = sub.subscriptionOfferDetails[0];
         const offerToken = offer.offerToken;
 
