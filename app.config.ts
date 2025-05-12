@@ -12,7 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: "light",
   newArchEnabled: true,
   ios: {
-    buildNumber: "3",
+    buildNumber: "4",
     userInterfaceStyle: "light",
     supportsTablet: true,
     infoPlist: {
@@ -27,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "com.b1tech.edukaia",
     userInterfaceStyle: "light",
-    versionCode: 7,
+    versionCode: 8,
   },
   web: {
     bundler: "metro",

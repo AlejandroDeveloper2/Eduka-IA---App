@@ -143,7 +143,13 @@
     "button-subscribe-label": "Assinar",
     "subscribe-loading-message": "Processando compra...",
     "success-purchase-msg": "Você se inscreveu com sucesso! Agora pode começar a criar seus recursos.",
-    "error-purchase-msg": "Ocorreu um erro ao assinar o plano selecionado ou a compra foi cancelada."
+    "error-purchase-msg": "Ocorreu um erro ao assinar o plano selecionado ou a compra foi cancelada.",
+    "legal-info-section-title": "Política de privacidade e termos de uso",
+    "privacy-polices-label": "Política de privacidade",
+    "usage-terms-label": "Termos de uso",
+    "monthly-duration-label": "Duração: 1 mês",
+    "yearly-duration-label": "Duração: 1 ano",
+    "auto-renewing-label": "Renovação automática"
   },
   "expired-access-box-labels": {
     "title": "Assine novamente para recuperar o acesso",
